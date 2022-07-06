@@ -1,0 +1,63 @@
+---
+version: "2.1"
+
+# Plugin stack
+# Community,Tdarr_Plugin_lmg1_Reorder_Streams,,Community,Tdarr_Plugin_MC93_Migz1FFMPEG_CPU,,Community,Tdarr_Plugin_MC93_Migz5ConvertAudio,,Community,Tdarr_Plugin_MC93_Migz1Remux,,Community,Tdarr_Plugin_MC93_Migz3CleanAudio,,Community,Tdarr_Plugin_MC93_Migz4CleanSubs,,Community,Tdarr_Plugin_MC93_Migz2CleanTitle,,Community,Tdarr_Plugin_MC93_MigzImageRemoval,,
+
+# docker exec tdarr chown -R 1003:1003 /media/cache
+# docker exec tdarr-node chown -R 1003:1003 /media/cache
+
+services:
+  tdarr:
+    container_name: tdarr
+    image: haveagitgat/tdarr:latest
+    restart: always
+    network_mode: bridge # Don't like that tdarr uses bridge
+    ports:
+      - 8265:8265 # webUI port
+      - 8266:8266 # server port
+      - 8267:8267 # node port. It should be mapped on this container because the node container use the network from the main container
+    environment:
+      - TZ=${TES_TZ}
+      - PUID=${TES_UID}
+      - PGID=${TES_GID}
+      - UMASK_SET=002
+      - serverIP=0.0.0.0
+      - serverPort=8266
+      - webUIPort=8265
+    volumes:
+      - ${TES_APPDATA_PATH}/tdarr_server:/app/server
+      - ${TES_APPDATA_PATH}/tdarr_configs:/app/configs
+      - ${TES_APPDATA_PATH}/tdarr_logs:/app/logs
+
+      - tdarr_cache:/media/cache
+      - ${TES_SHARES_PATH}/TV:/media/tv
+      - ${TES_SHARES_PATH}/Movies:/media/movies
+      - ${TES_SHARES_PATH}/Stash:/media/stash
+
+  tdarr-node:
+    container_name: tdarr-node
+    image: haveagitgat/tdarr_node:latest
+    restart: always
+    network_mode: service:tdarr
+    environment:
+      - TZ=${TES_TZ}
+      - PUID=${TES_UID}
+      - PGID=${TES_GID}
+      - UMASK_SET=002
+      - nodeID=MainNode
+      - nodeIP=0.0.0.0
+      - nodePort=8267
+      - serverIP=0.0.0.0
+      - serverPort=8266
+    volumes:
+      - ${TES_APPDATA_PATH}/tdarr_configs:/app/configs
+      - ${TES_APPDATA_PATH}/tdarr_logs:/app/logs
+
+      - tdarr_cache:/media/cache
+      - ${TES_SHARES_PATH}/TV:/media/tv
+      - ${TES_SHARES_PATH}/Movies:/media/movies
+      - ${TES_SHARES_PATH}/Stash:/media/stash
+
+volumes:
+  tdarr_cache:

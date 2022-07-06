@@ -1,0 +1,21 @@
+---
+version: "2.1"
+
+# Default password: admin
+
+services:
+  filebrowser:
+    image: hurlenko/filebrowser
+    container_name: filebrowser
+    restart: always
+    user: "${TES_UID}:${TES_GID}"
+    #ports:
+      #- "8080:8080"
+    environment:
+      FB_USERNAME: "${TES_DOCKER_USERNAME}"
+      #FB_PASSWORD: "${admin_password}" # Needs to be hashed
+      FB_BASEURL: "/filebrowser"
+    volumes:
+      - "${TES_APPDATA_PATH}/filebrowser_config:/config"
+      - "${TES_SHARES_PATH}:/data"
+

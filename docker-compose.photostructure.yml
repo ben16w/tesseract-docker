@@ -1,0 +1,21 @@
+---
+version: "2.1"
+
+services:
+  photostructure:
+    container_name: photostructure
+    image: photostructure/server:beta
+    user: "${TES_UID}:${TES_GID}"
+    restart: always
+    ports:
+      - 1787:1787/tcp
+    environment:
+      TZ: "${TES_TZ}"
+      PS_LOG_LEVEL: debug #error
+      PS_FORCE_LOCAL_DB_REPLICA: 1
+    volumes:
+      - "${TES_APPDATA_PATH}/photostructure_tmp:/ps/tmp"
+      - "${TES_APPDATA_PATH}/photostructure_config:/ps/config"
+      - "${TES_APPDATA_PATH}/photostructure_logs:/ps/logs"
+      - "${TES_SHARES_PATH}/PhotoStructure:/ps/library"
+      - "${TES_SHARES_PATH}/Import/Photos:/import"

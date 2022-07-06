@@ -1,0 +1,10 @@
+---
+version: "2.1"
+
+services:
+  chromedp:
+    image: chromedp/headless-shell
+    container_name: chromedp
+    restart: always
+    ports:
+      - "9222:9222"

@@ -1,0 +1,15 @@
+---
+version: "2.1"
+
+services:
+  kavita:
+    image: kizaing/kavita:latest
+    container_name: kavita
+    restart: always
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./manga:/manga
+      - "${TES_SHARES_PATH}/Ebooks:/books"
+      - ${TES_APPDATA_PATH}/kavita_config:/kavita/config
+

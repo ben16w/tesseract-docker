@@ -1,0 +1,34 @@
+---
+version: "2.1"
+
+services:
+  transmission:
+    image: haugene/transmission-openvpn
+    container_name: transmission
+    restart: always
+    cap_add:
+      - NET_ADMIN
+    ports:
+      - "9091:9091"
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
+    environment:
+      PUID: "${TES_UID}"
+      PGID: "${TES_GID}"
+      TZ: "${TES_TZ}"
+      #OPENVPN_USERNAME: ${TES_DOCKER_USERNAME}
+      #OPENVPN_PASSWORD: ${TES_DOCKER_PASSWORD}
+      OPENVPN_PROVIDER: "CUSTOM"
+      OPENVPN_OPTS: "--inactive 3600 --ping 10 --ping-exit 60"
+      LOCAL_NETWORK: "192.168.1.0/24"
+      #TRANSMISSION_WEB_UI: transmission-web-control
+      TRANSMISSION_HOME: "/config"
+      TRANSMISSION_WATCH_DIR_ENABLED: "false"
+      #TRANSMISSION_WATCH_DIR: "/config/transmission/watch"
+      TRANSMISSION_SCRAPE_PAUSED_TORRENTS_ENABLED: "false"
+    volumes:
+      - ${TES_APPDATA_PATH}/transmission_config:/config
+      - ${TES_APPDATA_PATH}/transmission_openvpn_config:/etc/openvpn/custom/
+      - ${TES_SHARES_PATH}/Downloads:/data
+

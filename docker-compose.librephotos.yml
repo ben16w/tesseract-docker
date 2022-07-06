@@ -1,0 +1,75 @@
+---
+version: "2.1"
+
+services:
+  librephotos_proxy:
+    image: reallibrephotos/librephotos-proxy:dev
+    container_name: librephotos_proxy
+    restart: always
+    links: #See https://github.com/LibrePhotos/librephotos/issues/290
+      - "librephotos_backend:backend"
+      - "librephotos_frontend:frontend"
+    ports:
+      - 3000:80
+    depends_on:
+      - librephotos_backend
+      - librephotos_frontend
+    volumes:
+      - ${TES_SHARES_PATH}/Photos:/data # Location of your photos.
+      - ${TES_APPDATA_PATH}/librephotos_data:/protected_media # data
+
+  librephotos_db:
+    image: postgres:13
+    container_name: librephotos_db
+    restart: always
+    command: postgres -c fsync=off -c synchronous_commit=off -c full_page_writes=off -c random_page_cost=1.0
+    environment:
+      POSTGRES_USER: librephotos_user
+      POSTGRES_PASSWORD: "${TES_SQL_PASSWORD}"
+      POSTGRES_DB: librephotos_database
+    volumes:
+      - ${TES_APPDATA_PATH}/librephotos_db:/var/lib/postgresql/data
+
+  librephotos_frontend:
+    image: reallibrephotos/librephotos-frontend:dev
+    container_name: librephotos_frontend
+    restart: always
+    depends_on:
+      - librephotos_backend
+
+  librephotos_backend:
+    image: reallibrephotos/librephotos:dev
+    container_name: librephotos_backend
+    restart: always
+    depends_on:
+      - librephotos_db
+    environment:
+      SECRET_KEY: "${TES_SQL_PASSWORD}"
+      BACKEND_HOST: librephotos_backend
+      ADMIN_EMAIL: admin@example.com
+      ADMIN_USERNAME: ${TES_DOCKER_USERNAME}
+      ADMIN_PASSWORD: ${TES_DOCKER_PASSWORD}
+      DB_BACKEND: postgresql
+      DB_NAME: librephotos_database
+      DB_USER: librephotos_user
+      DB_PASS: "${TES_SQL_PASSWORD}"
+      DB_HOST: librephotos_db
+      DB_PORT: 5432
+      REDIS_HOST: librephotos_redis
+      REDIS_PORT: 6379
+      MAPBOX_API_KEY:
+      TIME_ZONE: "${TES_TZ}"
+      WEB_CONCURRENCY: 2 # 2-4 x $(NUM_CORES)
+      SKIP_PATTERNS:
+      DEBUG: 0
+      HEAVYWEIGHT_PROCESS: 1
+    volumes:
+      - ${TES_SHARES_PATH}/Photos:/data
+      - ${TES_APPDATA_PATH}/librephotos_data:/protected_media
+      - ${TES_APPDATA_PATH}/librephotos_logs/:/logs
+      - ${TES_APPDATA_PATH}/librephotos_cache:/root/.cache
+
+  librephotos_redis:
+    image: redis:6
+    container_name: librephotos_redis
+    restart: always

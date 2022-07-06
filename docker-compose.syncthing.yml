@@ -1,0 +1,20 @@
+---
+version: "2.1"
+
+services:
+  syncthing:
+    image: ghcr.io/linuxserver/syncthing
+    container_name: syncthing
+    restart: always
+    ports:
+      - 8384:8384
+      - 22000:22000
+      - 21027:21027/udp
+    environment:
+      PUID: "${TES_UID}"
+      PGID: "${TES_GID}"
+      TZ: "${TES_TZ}"
+      UMASK_SET: 022
+    volumes:
+      - "${TES_APPDATA_PATH}/syncthing_config:/config"
+      - "${TES_SHARES_PATH}:/data"

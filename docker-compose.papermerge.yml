@@ -1,0 +1,22 @@
+---
+version: "2.1"
+
+# Default username: admin
+# Default password: admin
+
+services:
+  papermerge:
+    image: ghcr.io/linuxserver/papermerge
+    container_name: papermerge
+    restart: always
+    ports:
+      - 8000:8000
+    environment:
+      PUID: ${TES_UID}
+      PGID: ${TES_GID}
+      TZ: "${TES_TZ}"
+    volumes:
+      - "${TES_APPDATA_PATH}/papermerge_config:/config"
+      - "${TES_APPDATA_PATH}/papermerge_data:/data"
+      - "${TES_SHARES_PATH}/Papermerge:/data/media"
+      #- "${TES_SHARES_PATH}/Papermerge:/data"

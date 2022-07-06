@@ -1,0 +1,19 @@
+---
+version: "2.1"
+
+# Default username: podgrab
+
+services:
+  podgrab:
+    image: akhilrex/podgrab
+    container_name: podgrab
+    restart: always
+    user: "${TES_UID}:${TES_GID}"
+    ports:
+      - "8001:8080"
+    environment:
+      CHECK_FREQUENCY: 720 # 12 hours
+      PASSWORD: "${TES_DOCKER_PASSWORD}"
+    volumes:
+      - "${TES_APPDATA_PATH}/podgrab_config:/config"
+      - "${TES_SHARES_PATH}/Audio/Podcasts:/assets"

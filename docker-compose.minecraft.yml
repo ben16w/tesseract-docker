@@ -1,0 +1,15 @@
+---
+version: "2.1"
+
+services:
+  minecraft:
+    image: itzg/minecraft-server
+    container_name: minecraft
+    restart: always
+    ports:
+      - 25565:25565
+    environment:
+      EULA: "TRUE"
+      TYPE: "FORGE"
+    volumes:
+      - "${TES_APPDATA_PATH}/minecraft_data:/data"

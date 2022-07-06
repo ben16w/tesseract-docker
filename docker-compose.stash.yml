@@ -1,0 +1,22 @@
+---
+version: "2.1"
+
+services:
+  stash:
+    image: stashapp/stash:latest
+    container_name: stash
+    restart: always
+    network_mode: host
+    # ports:
+    #   - "9999:9999"
+    environment:
+      - STASH_STASH=/data/
+      - STASH_GENERATED=/root/.stash/generated/
+      - STASH_METADATA=/root/.stash/metadata/
+      - STASH_CACHE=/root/.stash/cache/
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+
+      - "${TES_APPDATA_PATH}/stash_config:/root/.stash"
+      - "${TES_SHARES_PATH}/Stash:/data"
+

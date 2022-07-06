@@ -1,0 +1,16 @@
+---
+version: "2.1"
+
+services:
+  heimdall:
+    image: ghcr.io/linuxserver/heimdall
+    container_name: heimdall
+    restart: always
+    #ports:
+      #- "80:8080"
+    environment:
+      PUID: ${TES_UID}
+      PGID: ${TES_GID}
+      TZ: "${TES_TZ}"
+    volumes:
+      - "${TES_APPDATA_PATH}/heimdall_config:/config"

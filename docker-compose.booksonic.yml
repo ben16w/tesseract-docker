@@ -1,0 +1,20 @@
+---
+version: "2.1"
+
+services:
+  booksonic:
+    image: ghcr.io/linuxserver/booksonic-air
+    restart: always
+    container_name: booksonic
+    ports:
+      - 4040:4040
+    environment:
+      PUID: ${TES_UID}
+      PGID: ${TES_GID}
+      TZ: "${TES_TZ}"
+      #CONTEXT_PATH: url-base
+    volumes:
+      - "${TES_APPDATA_PATH}/booksonic_config:/config"
+      - "${TES_SHARES_PATH}/Audio/Audiobooks:/audiobooks:ro"
+      - "${TES_SHARES_PATH}/Audio/Podcasts:/podcasts:ro"
+      #- </path/to/othermedia>:/othermedia

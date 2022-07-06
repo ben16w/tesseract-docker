@@ -1,2 +1,2 @@
 # tesseract-docker
-Docker compose files for tesseract.
+Docker compose files for Tesseract.

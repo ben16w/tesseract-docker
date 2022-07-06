@@ -1,0 +1,103 @@
+---
+version: "2.1"
+
+services:
+  gitea:
+    image: gitea/gitea:latest-rootless
+    container_name: gitea
+    depends_on:
+      - gitea_db
+    restart: always
+    user: "${TES_UID}:${TES_GID}"
+    ports:
+      - "2222:2222"
+      - "3000:3000"
+    environment:
+      #DOMAIN: ${TES_DOMAIN}
+      #SSH_DOMAIN: ${192.168.1.5} # Domain name of this server, used for displayed clone URL.
+      HTTP_PORT: 3000
+      SSH_LISTEN_PORT: 2222 # Port for the built-in SSH server.
+      SSH_PORT: 2222 # SSH port displayed in clone URL.
+      #ROOT_URL: http://${192.168.1.5}:3000 # Overwrite the automatically generated public URL. 
+      APP_NAME: "Gitea"
+      RUN_MODE: prod
+      DISABLE_REGISTRATION: "true"
+      DB_TYPE: "mysql"
+      DB_HOST: "gitea_db:3306"
+      DB_NAME: "gitea_database"
+      DB_USER: "gitea_user"
+      DB_PASSWD: "${TES_SQL_PASSWORD}"
+    volumes:
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+      - "${TES_APPDATA_PATH}/gitea_config:/etc/gitea"
+      - "${TES_SHARES_PATH}/Repositories:/var/lib/gitea"
+
+  gitea_db:
+    image: ghcr.io/linuxserver/mariadb
+    container_name: gitea_db
+    restart: always
+    environment:
+      PUID: "${TES_UID}"
+      PGID: "${TES_GID}"
+      TZ: "${TES_TZ}"
+      MYSQL_ROOT_PASSWORD: "${TES_SQL_PASSWORD}"
+      MYSQL_USER: "gitea_user"
+      MYSQL_PASSWORD: "${TES_SQL_PASSWORD}"
+      MYSQL_DATABASE: "gitea_database"
+    volumes:
+      - ${TES_APPDATA_PATH}/gitea_db:/config
+
+  drone:
+    image: drone/drone:2
+    container_name: drone
+    restart: always
+    depends_on:
+      - gitea
+    ports:
+      - "3001:80"
+      - "9001:9000"
+    environment:
+      # https://docs.drone.io/server/provider/gitea/
+
+      DRONE_GITEA_SERVER: http://192.168.1.76:3000/
+      DRONE_GIT_ALWAYS_AUTH: "false"
+      DRONE_GITEA_CLIENT_ID: e691e670-0c70-45c7-b4c5-839d28875686
+      DRONE_GITEA_CLIENT_SECRET: ${TES_DRONE_GITEA_CLIENT_SECRET}
+
+      DRONE_SERVER_PROTO: http
+      DRONE_SERVER_HOST: "192.168.1.76:3001"
+      DRONE_TLS_AUTOCERT: "false"
+      DRONE_USER_CREATE: "username:${TES_USERNAME},admin:true"
+
+      DRONE_RPC_SECRET: ${DRONE_RPC_SECRET}
+
+
+      DRONE_DATABASE_DRIVER: sqlite3
+      DRONE_DATABASE_DATASOURCE: /data/database.sqlite
+
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ${TES_APPDATA_PATH}/drone_data:/data
+
+  drone-runner:
+    container_name: drone-runner
+    image: drone/drone-runner-docker:1
+    restart: always
+    depends_on:
+      - drone
+    environment:
+      # https://docs.drone.io/runner/docker/installation/linux/
+      # https://docs.drone.io/server/metrics/
+      DRONE_RPC_PROTO: http
+      DRONE_RPC_HOST: drone
+      DRONE_RPC_SECRET: ${TES_DRONE_RPC_SECRET}
+      DRONE_RUNNER_NAME: "done-runner"
+      #DRONE_RUNNER_CAPACITY: 2
+      #DRONE_RUNNER_NETWORKS: cicd_net
+      #DRONE_DEBUG: false
+      #DRONE_TRACE: false
+    ports:
+      - "3002:3000"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock

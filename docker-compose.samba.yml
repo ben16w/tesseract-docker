@@ -1,0 +1,23 @@
+---
+version: "2.1"
+
+services:
+  samba:
+    image: dperson/samba
+    container_name: samba
+    restart: always
+    environment:
+      USERID: "${TES_UID}"
+      GROUPID: "${TES_GID}"
+      TZ: "${TES_TZ}"
+      NMBD: "true"
+      RECYCLE: "false"
+      USER: "${TES_USERNAME};${TES_SAMBA_}" #;1000;tesseract:1000" # Should be TES_SAMBA_USERNAME
+      SHARE: "Tesseract;/mount;yes;no;no;${TES_USERNAME}"
+      PERMISSIONS: "true"
+    network_mode: host
+    mem_limit: 256M
+    #hostname: tesseract # Is this needed?
+    volumes:
+      - "${TES_SHARES_PATH}:/mount"
+    command: '-g "case sensitive = yes" -g "preserve case = yes" -g "mangled names = no"'

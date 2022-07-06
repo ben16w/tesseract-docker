@@ -1,0 +1,18 @@
+---
+version: "2.1"
+
+services:
+  archivebox:
+    image: archivebox/archivebox:master
+    container_name: archivebox
+    command: server --quick-init 0.0.0.0:8000
+    restart: always
+#    command: schedule --foreground --every=day --depth=1 'https://getpocket.com/users/USERNAME/feed/all'
+    ports:
+      - 8000:8000
+    environment:
+      - ALLOWED_HOSTS=*                   # add any config options you want as env vars
+      - MEDIA_MAX_SIZE=750m
+    volumes:
+      - "${TES_SHARES_PATH}/Archivebox:/data"
+

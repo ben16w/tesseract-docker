@@ -1,0 +1,41 @@
+---
+version: "2.1"
+
+# Default username: admin@admin.com
+# Default password: password
+
+services:
+  bookstack:
+    image: ghcr.io/linuxserver/bookstack
+    container_name: bookstack
+    restart: always
+    ports:
+      - 6875:80
+    depends_on:
+      - bookstack_db
+    environment:
+      PUID: ${TES_UID}
+      PGID: ${TES_GID}
+      TZ: "${TES_TZ}"
+      APP_URL: http://192.168.0.3:6875
+      DB_HOST: bookstack_db
+      DB_USER: bookstack_user
+      DB_PASS: "${TES_SQL_PASSWORD}"
+      DB_DATABASE: bookstack_database
+    volumes:
+      - ${TES_APPDATA_PATH}/bookstack_config:/config
+
+  bookstack_db:
+    image: ghcr.io/linuxserver/mariadb
+    container_name: bookstack_db
+    restart: always
+    environment:
+      PUID: ${TES_UID}
+      PGID: ${TES_GID}
+      TZ: "${TES_TZ}"
+      MYSQL_ROOT_PASSWORD: "${TES_SQL_PASSWORD}"
+      MYSQL_DATABASE: bookstack_database
+      MYSQL_USER: bookstack_user
+      MYSQL_PASSWORD: "${TES_SQL_PASSWORD}"
+    volumes:
+      - ${TES_APPDATA_PATH}/bookstack_db:/config

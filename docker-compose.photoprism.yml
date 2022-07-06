@@ -1,0 +1,75 @@
+---
+version: "2.1"
+
+services:
+  photoprism:
+    container_name: photoprism
+    image: photoprism/photoprism:latest
+    restart: always
+    security_opt:
+      - seccomp:unconfined
+      - apparmor:unconfined
+    working_dir: "/photoprism"
+    depends_on:
+      - photoprism_db
+    ports:
+      - "2344:2342" # HTTP port (host:container)
+    environment:
+      PHOTOPRISM_UID: ${TES_UID}
+      PHOTOPRISM_GID: ${TES_GID}
+      PHOTOPRISM_SITE_URL: "http://photos.ben16w.site/"
+      PHOTOPRISM_SITE_TITLE: "PhotoPrism"
+      PHOTOPRISM_SITE_CAPTION: "Photo land"
+      PHOTOPRISM_SITE_DESCRIPTION: "Whoo photos"
+      #PHOTOPRISM_SITE_AUTHOR: "@photoprism_app"
+      PHOTOPRISM_DEBUG: "true"
+      PHOTOPRISM_READONLY: "false"
+      PHOTOPRISM_PUBLIC: "true"
+      PHOTOPRISM_EXPERIMENTAL: "false"
+      #PHOTOPRISM_SERVER_MODE: "debug"
+      PHOTOPRISM_HTTP_HOST: "0.0.0.0"
+      PHOTOPRISM_HTTP_PORT: 2342
+      PHOTOPRISM_HTTP_COMPRESSION: "gzip"
+      PHOTOPRISM_DATABASE_DRIVER: "mysql"
+      PHOTOPRISM_DATABASE_SERVER: "photoprism_db:3306"
+      PHOTOPRISM_DATABASE_NAME: "photoprism_database"
+      PHOTOPRISM_DATABASE_USER: "photoprism_user"
+      PHOTOPRISM_DATABASE_PASSWORD: "${TES_SQL_PASSWORD}"
+      PHOTOPRISM_ADMIN_PASSWORD: "${TES_DOCKER_PASSWORD}"
+      PHOTOPRISM_DISABLE_CHOWN: "false"       # Disables storage permission updates on startup
+      PHOTOPRISM_DISABLE_BACKUPS: "false"     # Don't backup photo and album metadata to YAML files
+      PHOTOPRISM_DISABLE_WEBDAV: "false"      # Disables built-in WebDAV server
+      PHOTOPRISM_DISABLE_SETTINGS: "false"    # Disables Settings in Web UI
+      PHOTOPRISM_DISABLE_PLACES: "false"      # Disables reverse geocoding and maps
+      PHOTOPRISM_DISABLE_EXIFTOOL: "false"    # Don't create ExifTool JSON files for improved metadata extraction
+      PHOTOPRISM_DISABLE_TENSORFLOW: "false"  # Don't use TensorFlow for image classification
+      PHOTOPRISM_DETECT_NSFW: "true"         # Flag photos as private that MAY be offensive (requires TensorFlow)
+      PHOTOPRISM_UPLOAD_NSFW: "false"         # Allows uploads that may be offensive
+      PHOTOPRISM_DARKTABLE_PRESETS: "false"   # Enables Darktable presets and disables concurrent RAW conversion
+      PHOTOPRISM_THUMB_FILTER: "lanczos"      # Resample filter, best to worst: blackman, lanczos, cubic, linear
+      PHOTOPRISM_THUMB_UNCACHED: "true"       # Enables on-demand thumbnail rendering (high memory and cpu usage)
+      PHOTOPRISM_THUMB_SIZE: 2048             # Pre-rendered thumbnail size limit (default 2048, min 720, max 7680)
+      # PHOTOPRISM_THUMB_SIZE: 4096           # Retina 4K, DCI 4K (requires more storage); 7680 for 8K Ultra HD
+      PHOTOPRISM_THUMB_SIZE_UNCACHED: 7680    # On-demand rendering size limit (default 7680, min 720, max 7680)
+      PHOTOPRISM_JPEG_SIZE: 7680              # Size limit for converted image files in pixels (720-30000)
+      PHOTOPRISM_JPEG_QUALITY: 92             # Set to 95 for high-quality thumbnails (25-100)
+      TF_CPP_MIN_LOG_LEVEL: 0                 # Show TensorFlow log messages for development
+    volumes:
+      - "${TES_APPDATA_PATH}/photoprism_config:/photoprism/storage" # Storage folder for settings, index & sidecar files (DON'T REMOVE):
+      - "${TES_SHARES_PATH}/Photoprism:/photoprism/originals" # Your personal photo and video collection ([local path]:[container path]):
+      - "${TES_SHARES_PATH}/Import:/photoprism/import" # Mounting the import folder is optional (see docs):
+
+  photoprism_db:
+    image: ghcr.io/linuxserver/mariadb
+    container_name: photoprism_db
+    restart: always
+    environment:
+      PUID: "${TES_UID}"
+      PGID: "${TES_GID}"
+      TZ: "${TES_TZ}"
+      MYSQL_ROOT_PASSWORD: "${TES_SQL_PASSWORD}"
+      MYSQL_USER: "photoprism_user"
+      MYSQL_PASSWORD: "${TES_SQL_PASSWORD}"
+      MYSQL_DATABASE: "photoprism_database"
+    volumes:
+      - "${TES_APPDATA_PATH}/photoprism_db:/config"

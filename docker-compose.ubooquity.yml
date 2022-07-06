@@ -1,0 +1,21 @@
+---
+version: "2.1"
+
+services:
+  ubooquity:
+    image: ghcr.io/linuxserver/ubooquity
+    container_name: ubooquity
+    restart: always
+    ports:
+      - 2202:2202 # Library
+      - 2203:2203 # Admin
+    environment:
+      PUID: "${TES_UID}"
+      PGID: "${TES_GID}"
+      TZ: "${TES_TZ}"
+      MAXMEM: 512
+    volumes:
+      - "${TES_APPDATA_PATH}/ubooquity_config:/config"
+      - "${TES_SHARES_PATH}/Ebooks:/books"
+      #- <path to comics>:/comics
+      #- <path to raw files>:/files

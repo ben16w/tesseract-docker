@@ -1,0 +1,25 @@
+---
+version: "2.1"
+
+services:
+  navidrome:
+    image: deluan/navidrome:latest
+    container_name: navidrome
+    user: "${TES_UID}:${TES_GID}"
+    restart: always
+    #ports:
+      #- "4533:4533"
+    environment:
+      ND_MUSICFOLDER: "/music"
+      ND_DATAFOLDER: "/data"
+      ND_SCANINTERVAL: "12h"
+      ND_LOGLEVEL: "info"
+      ND_PORT: 4533
+      ND_TRANSCODINGCACHESIZE: "100MB"
+      ND_SESSIONTIMEOUT: "24h"
+      ND_DEFAULTTHEME: "Spotify-ish"
+      ND_SPOTIFY_ID: "${TES_SPOTIFY_ID}"
+      ND_SPOTIFY_SECRET: "${TES_SPOTIFY_SECRET}"
+    volumes:
+      - "${TES_APPDATA_PATH}/navidrome_data:/data"
+      - "${TES_SHARES_PATH}/Music:/music:ro"

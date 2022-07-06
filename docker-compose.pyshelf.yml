@@ -1,0 +1,26 @@
+---
+version: "2.1"
+
+services:
+  pyshelf:
+    image: pyshelf/pyshelf
+    container_name: pyshelf
+    restart: always
+    depends_on:
+      - db
+    ports: 
+      - "8000:8000"
+      - "1337:1337"
+    volumes:
+      - "${TES_SHARES_PATH}/Ebooks:/books"
+
+  pyshelf_db:
+    image: postgres
+    container_name: pyshelf_db
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: pyshelf
+      POSTGRES_USER: pyshelf
+      POSTGRES_DB: pyshelf
+    volumes:
+      - "${TES_APPDATA_PATH}/pyshelf_db:/var/lib/postgresql/data/"

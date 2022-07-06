@@ -1,0 +1,50 @@
+---
+version: "2.1"
+
+# Need to run 'docker-compose run --rm paperless createsuperuser` to generate username/password
+
+services:
+  paperless:
+    image: ghcr.io/paperless-ngx/paperless-ngx:latest
+    container_name: paperless
+    restart: always
+    depends_on:
+      - paperless_broker
+#    ports:
+#      - 8000:8000
+    environment:
+      PAPERLESS_URL: "https://paper.ben16w.site"
+      USERMAP_UID: ${TES_UID}
+      USERMAP_GID: ${TES_GID}
+      PAPERLESS_SECRET_KEY: "${TES_SQL_PASSWORD}" # Using mariadb password but should change to something dedicated
+      PAPERLESS_TIME_ZONE: "${TES_TZ}"
+      PAPERLESS_OCR_LANGUAGE: eng
+      PAPERLESS_CONSUMER_POLLING: 999999999
+      PAPERLESS_REDIS: redis://paperless_broker:6379
+      PAPERLESS_WEBSERVER_WORKERS: 1
+      PAPERLESS_TASK_WORKERS: 2
+      PAPERLESS_THREADS_PER_WORKER: 1
+      PAPERLESS_TIKA_ENABLED: 1
+      PAPERLESS_TIKA_GOTENBERG_ENDPOINT: http://paperless_gotenberg:3000
+      PAPERLESS_TIKA_ENDPOINT: http://paperless_tika:9998
+    volumes:
+      - "${TES_APPDATA_PATH}/paperless_data:/usr/src/paperless/data"
+      - "${TES_SHARES_PATH}/Paperless:/usr/src/paperless/media"
+      - "${TES_SHARES_PATH}/Import:/usr/src/paperless/consume"
+
+  paperless_broker:
+    image: redis:alpine
+    container_name: paperless_broker
+    restart: always
+
+  paperless_gotenberg:
+    image: thecodingmachine/gotenberg
+    container_name: paperless_gotenberg
+    restart: always
+    environment:
+      DISABLE_GOOGLE_CHROME: 1
+
+  paperless_tika:
+    image: apache/tika
+    container_name: paperless_tika
+    restart: always

@@ -1,0 +1,17 @@
+---
+version: "2.1"
+
+services:
+  audioserve:
+    image: ben16w/audioserve:latest
+    container_name: audioserve
+    restart: always
+    #user: "${TES_UID}:${TES_GID}"
+    ports:
+      - "3000:3000"
+    environment:
+      AUDIOSERVE_SHARED_SECRET: "${TES_DOCKER_PASSWORD}"
+      AUDIOSERVE_BASE_DIRS: "/audio"
+    volumes:
+#      - ${TES_APPDATA_PATH}/audioserve_config:/home/audioserve/.audioserve
+      - "${TES_SHARES_PATH}/Audio:/audio:ro"

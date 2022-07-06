@@ -1,0 +1,16 @@
+---
+version: "2.1"
+
+services:
+  homer:
+    image: b4bz/homer
+    container_name: homer
+    restart: always
+    #ports:
+    #  - 8080:8080
+    environment:
+      UID: "${TES_UID}"
+      GID: "${TES_GID}"
+    volumes:
+      - "${TES_APPDATA_PATH}/homer_config:/www/assets"
+
