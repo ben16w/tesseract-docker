@@ -16,6 +16,7 @@ services:
       # WEBSOCKET_ENABLED: "true" # Enable WebSocket notifications. Needs setup with reverse proxy.
       SIGNUPS_ALLOWED: "false"
       ROCKET_PORT: 8087
+      ADMIN_TOKEN: "${TES_VAULTWARDEN_ADMIN_TOKEN}"
       #DOMAIN: <domain_name>
       #SMTP_HOST: <smtp_host>
       #SMTP_FROM: <sender_address>
