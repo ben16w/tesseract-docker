@@ -33,7 +33,6 @@ services:
       - tdarr_cache:/media/cache
       - ${TES_SHARES_PATH}/TV:/media/tv
       - ${TES_SHARES_PATH}/Movies:/media/movies
-      - ${TES_SHARES_PATH}/Stash:/media/stash
 
   tdarr-node:
     container_name: tdarr-node
@@ -57,7 +56,6 @@ services:
       - tdarr_cache:/media/cache
       - ${TES_SHARES_PATH}/TV:/media/tv
       - ${TES_SHARES_PATH}/Movies:/media/movies
-      - ${TES_SHARES_PATH}/Stash:/media/stash
 
 volumes:
   tdarr_cache:

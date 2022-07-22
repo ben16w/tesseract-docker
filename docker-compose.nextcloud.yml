@@ -10,6 +10,7 @@ services:
     user: ${TES_UID}:${TES_GID}
     depends_on:
       - nextcloud_db
+      - nextcloud_broker
     ports:
       - 8081:80
     environment:
