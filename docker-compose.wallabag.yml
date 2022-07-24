@@ -10,6 +10,7 @@ services:
     environment:
       SYMFONY__ENV__DOMAIN_NAME: http://wall.ben16w.site
       SYMFONY__ENV__SERVER_NAME: "Your wallabag instance"
+      SYMFONY__ENV__FOSUSER_CONFIRMATION: false
 
       SYMFONY__ENV__MAILER_HOST: ${TES_EMAIL_HOST}
       SYMFONY__ENV__MAILER_USER: ${TES_EMAIL_USERNAME}
@@ -17,6 +18,6 @@ services:
       SYMFONY__ENV__FROM_EMAIL: ${TES_EMAIL_USERNAME}
 
     volumes:
-      - ${TES_APPDATA_PATH}/wallabad_data:/var/www/wallabag/data 
-      - ${TES_APPDATA_PATH}/wallabad_images:/var/www/wallabag/web/assets/images
+      - ${TES_APPDATA_PATH}/wallabag_data:/var/www/wallabag/data 
+      - ${TES_APPDATA_PATH}/wallabag_images:/var/www/wallabag/web/assets/images
 
