@@ -10,7 +10,7 @@ services:
     environment:
       SYMFONY__ENV__DOMAIN_NAME: http://wall.ben16w.site
       SYMFONY__ENV__SERVER_NAME: "Your wallabag instance"
-      SYMFONY__ENV__FOSUSER_CONFIRMATION: false
+      SYMFONY__ENV__FOSUSER_CONFIRMATION: "false"
 
       SYMFONY__ENV__MAILER_HOST: ${TES_EMAIL_HOST}
       SYMFONY__ENV__MAILER_USER: ${TES_EMAIL_USERNAME}
