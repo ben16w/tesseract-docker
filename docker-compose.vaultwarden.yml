@@ -1,0 +1,29 @@
+---
+version: "2.1"
+
+# Default username:
+# Default password:
+
+services:
+  vaultwarden:
+    image: vaultwarden/server:latest
+    container_name: vaultwarden
+    restart: always
+    user: ${DOCKER_UID}:${DOCKER_GID}
+    ports:
+      - 8087:8087
+    environment:
+      # WEBSOCKET_ENABLED: "true" # Enable WebSocket notifications. Needs setup with reverse proxy.
+      SIGNUPS_ALLOWED: "false"
+      ROCKET_PORT: 8087
+      ADMIN_TOKEN: "${DOCKER_VAULTWARDEN_ADMIN_TOKEN}"
+      DOMAIN: "https://vault.${DOCKER_DOMAIN}"
+      SMTP_HOST: "${DOCKER_EMAIL_HOST}"
+      SMTP_FROM: "${DOCKER_EMAIL_USERNAME}"
+      SMTP_FROM_NAME: Vaultwarden
+      SMTP_SECURITY: "force_tls"
+      SMTP_PORT: "${DOCKER_EMAIL_PORT}"
+      SMTP_USERNAME: "${DOCKER_EMAIL_USERNAME}"
+      SMTP_PASSWORD: "${DOCKER_EMAIL_PASSORD}"
+    volumes:
+      - ${DOCKER_APPDATA_PATH}/vaultwarden_data:/data

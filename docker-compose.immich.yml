@@ -1,0 +1,79 @@
+---
+version: "2.1"
+
+services:
+  immich_server:
+    image: ghcr.io/immich-app/immich-server:release
+    container_name: immich_server
+    restart: always
+    command: [ "start.sh", "immich" ]
+    ports:
+      - 2283:3001
+    environment:
+      DB_HOSTNAME: immich_db
+      DB_USERNAME: immich_user
+      DB_PASSWORD: ${DOCKER_SQL_PASSWORD}
+      DB_DATABASE_NAME: immich_database
+      REDIS_HOSTNAME: immich_redis
+      UPLOAD_LOCATION: ./upload
+      IMMICH_MACHINE_LEARNING_URL: "http://immich_ml:3003"
+    depends_on:
+      - immich_redis
+      - immich_db
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ${DOCKER_APPDATA_PATH}/immich_upload:/usr/src/app/upload
+      - ${DOCKER_DATA_PATH}/Immich/library:/usr/src/app/upload/library
+
+  immich_microservices:
+    image: ghcr.io/immich-app/immich-server:release
+    container_name: immich_microservices
+    restart: always
+    command: [ "start.sh", "microservices" ]
+    devices:
+      - /dev/dri:/dev/dri  # Intel QuickSync or VAAPI HW Acceleration
+    environment:
+      DB_HOSTNAME: immich_db
+      DB_USERNAME: immich_user
+      DB_PASSWORD: ${DOCKER_SQL_PASSWORD}
+      DB_DATABASE_NAME: immich_database
+      REDIS_HOSTNAME: immich_redis
+      UPLOAD_LOCATION: ./upload
+      IMMICH_MACHINE_LEARNING_URL: "http://immich_ml:3003"
+    depends_on:
+      - immich_redis
+      - immich_db
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ${DOCKER_APPDATA_PATH}/immich_upload:/usr/src/app/upload
+      - ${DOCKER_DATA_PATH}/Immich/library:/usr/src/app/upload/library
+
+  immich_ml:
+    image: ghcr.io/immich-app/immich-machine-learning:release
+    container_name: immich_ml
+    restart: always
+    environment:
+      REDIS_HOSTNAME: immich_redis
+      UPLOAD_LOCATION: ./upload
+    volumes:
+      - immich_ml_cache:/cache
+
+  immich_redis:
+    image: redis:6.2-alpine@sha256:80cc8518800438c684a53ed829c621c94afd1087aaeb59b0d4343ed3e7bcf6c5
+    container_name: immich_redis
+    restart: always
+
+  immich_db:
+    image: tensorchord/pgvecto-rs:pg14-v0.1.11
+    container_name: immich_db
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: ${DOCKER_SQL_PASSWORD}
+      POSTGRES_USER: immich_user
+      POSTGRES_DB: immich_database
+      PG_DATA: /var/lib/postgresql/data
+    volumes:
+      - ${DOCKER_APPDATA_PATH}/immich_db:/var/lib/postgresql/data
+
+volumes:
+  immich_ml_cache:

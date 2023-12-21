@@ -1,0 +1,16 @@
+---
+version: "2.1"
+
+services:
+    organizr:
+        image: organizr/organizr:latest
+        container_name: organizr
+        restart: always
+        ports:
+            - 80:80
+        environment:
+            PUID: "${DOCKER_UID}"
+            PGID: "${DOCKER_GID}"
+            TZ: "${DOCKER_TZ}"
+        volumes:
+            - "${DOCKER_APPDATA_PATH}/organizr_config:/config"

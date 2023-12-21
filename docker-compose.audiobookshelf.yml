@@ -1,0 +1,18 @@
+---
+version: "2.1"
+
+services:
+  audiobookshelf:
+    container_name: audiobookshelf
+    image: ghcr.io/advplyr/audiobookshelf:latest
+    restart: always
+    environment:
+      AUDIOBOOKSHELF_UID: ${DOCKER_UID}
+      AUDIOBOOKSHELF_GID: ${DOCKER_UID}
+    ports:
+      - 13378:80
+    volumes:
+      - "${DOCKER_APPDATA_PATH}/audiobookshelf_config:/config"
+      - "${DOCKER_APPDATA_PATH}/audiobookshelf_metadata:/metadata"
+      - "${DOCKER_DATA_PATH}/Audio/Audiobooks:/audiobooks"
+      - "${DOCKER_DATA_PATH}/Audio/Podcasts:/podcasts"

@@ -1,0 +1,19 @@
+---
+version: "2.1"
+
+services:
+  lidarr:
+    image: lscr.io/linuxserver/lidarr:latest
+    container_name: lidarr
+    restart: always
+    ports:
+      - 8686:8686
+    environment:
+      PUID: "${DOCKER_UID}"
+      PGID: "${DOCKER_GID}"
+      TZ: "${DOCKER_TZ}"
+      DOCKER_MODS: linuxserver/mods:lidarr-flac2mp3
+    volumes:
+      - "${DOCKER_APPDATA_PATH}/lidarr_config:/config"
+      - "${DOCKER_DATA_PATH}/Music:/music"
+      - "${DOCKER_DATA_PATH}/Downloads/completed:/downloads"

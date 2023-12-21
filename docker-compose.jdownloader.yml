@@ -1,0 +1,18 @@
+---
+version: '2.1'
+
+services:
+  jdownloader:
+    image: jlesage/jdownloader-2
+    container_name: jdownloader
+    restart: always
+    #user: 1001:100
+    ports:
+      - "5800:5800"
+    environment:
+      USER_ID: "${DOCKER_UID}"
+      GROUP_ID: "${DOCKER_GID}"
+      TZ: "${DOCKER_TZ}"
+    volumes:
+      - "${DOCKER_APPDATA_PATH}/jdownloader_config:/config"
+      - "${DOCKER_DATA_PATH}/Downloads/jdownloader:/output"

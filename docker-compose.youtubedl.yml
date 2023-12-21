@@ -1,0 +1,33 @@
+version: "2.1"
+
+services:
+  youtubedl:
+    image: tzahi12345/youtubedl-material:latest
+    container_name: youtubedl
+    restart: always
+    depends_on:
+      - youtubedl-db
+    ports:
+      - 8998:17442
+    environment:
+      ALLOW_CONFIG_MUTATIONS: 'true'
+      ytdl_mongodb_connection_string: 'mongodb://youtubedl-db:27017'
+      ytdl_use_local_db: 'false'
+      write_ytdl_config: 'true'
+    volumes:
+      - ./appdata:/app/appdata
+      - ./audio:/app/audio
+      - ./video:/app/video
+      - ./subscriptions:/app/subscriptions
+      - ./users:/app/users
+
+  youtubedl-db:
+    image: mongo
+    container_name: youtubedl-db
+    restart: always
+    ports:
+      - 27017:27017
+    logging:
+      driver: "none"
+    volumes:
+      - ./db/:/data/db

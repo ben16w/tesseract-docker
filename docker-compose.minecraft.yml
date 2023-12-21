@@ -1,0 +1,22 @@
+---
+version: "2.1"
+
+services:
+  minecraft:
+    container_name: minecraft
+    image: itzg/minecraft-bedrock-server
+    restart: always
+    environment:
+      EULA: "TRUE"
+      SERVER_NAME: "Ben's Minecraft server"
+      DEFAULT_PLAYER_PERMISSION_LEVEL: operator
+      GAMEMODE: survival
+      DIFFICULTY: normal
+      UID: "${DOCKER_UID}"
+      GID: "${DOCKER_GID}"
+      ONLINE_MODE: "false"
+
+    ports:
+      - 19132:19132/udp
+    volumes:
+      - "${DOCKER_APPDATA_PATH}/minecraft_data:/data"

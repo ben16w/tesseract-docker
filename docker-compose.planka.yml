@@ -1,0 +1,39 @@
+---
+version: "2.1"
+
+services:
+  planka:
+    image: ghcr.io/plankanban/planka:latest
+    container_name: planka
+    restart: always
+    ports:
+      - 3002:1337
+    depends_on:
+      - planka_db
+    command: >
+      bash -c
+        "for i in `seq 1 30`; do
+          ./start.sh &&
+          s=$$? && break || s=$$?;
+          echo \"Tried $$i times. Waiting 5 seconds...\";
+          sleep 5;
+        done; (exit $$s)"
+    environment:
+      BASE_URL: "http://boards.${DOCKER_DOMAIN}"
+      TRUST_PROXY: 0
+      DATABASE_URL: postgresql://postgres@planka_db/planka
+      SECRET_KEY: "${DOCKER_PLANKA_SECRET_KEY}"
+    volumes:
+      - "${DOCKER_APPDATA_PATH}/planka_avatars:/app/public/user-avatars"
+      - "${DOCKER_APPDATA_PATH}/planka_images:/app/public/project-background-images"
+      - "${DOCKER_APPDATA_PATH}/planka_attachments:/app/private/attachments"
+
+  planka_db:
+    image: postgres:14-alpine
+    restart: always
+    container_name: planka_db
+    environment:
+      POSTGRES_DB: planka
+      POSTGRES_HOST_AUTH_METHOD: trust
+    volumes:
+      - "${DOCKER_APPDATA_PATH}/planka_db:/var/lib/postgresql/data"

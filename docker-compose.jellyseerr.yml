@@ -1,0 +1,15 @@
+---
+version: '2.1'
+
+services:
+  jellyseerr:
+    image: fallenbagel/jellyseerr:latest
+    container_name: jellyseerr
+    restart: always
+    ports:
+      - 5055:5055
+    environment:
+      LOG_LEVEL: debug
+      TZ: "${DOCKER_TZ}"
+    volumes:
+      - "${DOCKER_APPDATA_PATH}/jellyseerr_config:/app/config"

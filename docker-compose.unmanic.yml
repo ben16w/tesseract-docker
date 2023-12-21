@@ -1,0 +1,36 @@
+---
+version: '2.1'
+
+services:
+  unmanic:
+    image: josh5/unmanic:latest
+    container_name: unmanic
+    restart: always
+    ports:
+      - 8899:8888
+    environment:
+      PUID: "${DOCKER_UID}"
+      PGID: "${DOCKER_GID}"
+      TZ: "${DOCKER_TZ}"
+    devices:
+      - /dev/dri:/dev/dri       # For H/W transcoding using the VAAPI encoder
+    volumes:
+      - "${DOCKER_APPDATA_PATH}/unmanic_config:/config"
+      - unmanic_cache:/tmp/unmanic
+      - stash:/library/stash
+
+volumes:
+  unmanic_cache:
+  stash:
+    driver: local
+    driver_opts:
+      type: cifs
+      device: //${DOCKER_TEPIG_HOST}/Stash
+      o: "username=${DOCKER_TEPIG_USERNAME},\
+        password=${DOCKER_TEPIG_PASSWORD},\
+        uid=${DOCKER_UID},\
+        gid=${DOCKER_GID},\
+        vers=3.0,\
+        file_mode=0660,\
+        dir_mode=0770,\
+        rw"

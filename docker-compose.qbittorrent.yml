@@ -1,0 +1,21 @@
+---
+version: "2.1"
+
+services:
+  qbittorrent:
+    image: lscr.io/linuxserver/qbittorrent:latest
+    container_name: qbittorrent
+    restart: always
+    network_mode: host
+    # ports:
+    #   - 8080:8080
+    #   - 6881:6881
+    #   - 6881:6881/udp
+    environment:
+      PUID: "${DOCKER_UID}"
+      PGID: "${DOCKER_GID}"
+      TZ: "${DOCKER_TZ}"
+      WEBUI_PORT: 8112
+    volumes:
+      - "${DOCKER_APPDATA_PATH}/qbittorrent_config:/config"
+      - "${DOCKER_DATA_PATH}/Downloads/qbittorrent:/downloads"

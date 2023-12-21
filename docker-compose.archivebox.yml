@@ -1,0 +1,29 @@
+---
+version: "2.1"
+
+# docker-compose -f docker-compose.archivebox.yml run archivebox init --setup
+
+services:
+  archivebox:
+    image: archivebox/archivebox:dev
+    container_name: archivebox
+    restart: always
+    command: server --quick-init 0.0.0.0:8000
+    ports:
+      - 8003:8000
+    environment:
+      PUID: ${DOCKER_UID}
+      PGID: ${DOCKER_GID}
+      ALLOWED_HOSTS: "*"
+      MAX_MEDIA_SIZE: 1500m
+      SAVE_ARCHIVE_DOT_ORG: "False"
+      TIMEOUT: "240"
+      MEDIA_TIMEOUT: "3600"
+      SAVE_MEDIA: "True"
+      PUBLIC_INDEX: "False"
+      PUBLIC_SNAPSHOTS: "False"
+      PUBLIC_ADD_VIEW: "False"
+      CHECK_SSL_VALIDITY: "False"
+    volumes:
+      - "${DOCKER_APPDATA_PATH}/archivebox_data:/data"
+      - "${DOCKER_DATA_PATH}/Archivebox:/data/archive"

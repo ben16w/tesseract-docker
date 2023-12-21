@@ -1,0 +1,19 @@
+---
+version: "2.1"
+
+services:
+  unpackerr:
+    image: ghcr.io/hotio/unpackerr
+    container_name: unpackerr
+    restart: always
+    environment:
+      PUID: "${DOCKER_UID}"
+      PGID: "${DOCKER_GID}"
+      TZ: "${DOCKER_TZ}"
+      UMASK: 002
+    volumes:
+      - "${DOCKER_APPDATA_PATH}/unpackerr_config:/config"
+      - transmission_cache:/transmission_cache
+
+volumes:
+  transmission_cache:

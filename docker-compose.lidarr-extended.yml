@@ -1,0 +1,50 @@
+version: "2.1"
+
+# docker exec lidarr bash /scripts/AutoConfig.bash
+# docker exec -i lidarr /bin/bash -c "export addRelatedArtists=true && bash /scripts/AutoArtistAdder.bash"
+
+services:
+  lidarr:
+    image: randomninjaatk/lidarr-extended:latest
+    container_name: lidarr
+    restart: always
+    ports:
+      - 8686:8686
+    entrypoint: ["bash", "-c", "sed -i 's/.*libmp3lame.*/options=\"-c:a libmp3lame -q:a 0\"/' /scripts/Audio.sh && /init"]
+    environment:
+      PUID: "${DOCKER_UID}"
+      PGID: "${DOCKER_GID}"
+      TZ: "${DOCKER_TZ}"
+      # DOCKER_MODS: linuxserver/mods:lidarr-flac2mp3
+      enableAudioScript: "true"
+      enableVideoScript: "false"
+      scriptInterval: "15m"
+      configureLidarrWithOptimalSettings: "true"
+      searchSort: "date"
+      audioFormat: "mp3"
+      audioBitrate: 320
+      requireQuality: "true"
+      enableReplaygainTags: "true"
+      audioLyricType: "both"
+      dlClientSource: "deezer"
+      arlToken: "${DOCKER_DEEZER_ARL}"
+      addDeezerTopArtists: "false"
+      addDeezerTopAlbumArtists: "false"
+      addDeezerTopTrackArtists: "false"
+      addRelatedArtists: "false"
+      numberOfRelatedArtistsToAddPerArtist: 5
+      lidarrSearchForMissing: "true"
+      addFeaturedVideoArtists: "false"
+      youtubeSubtitleLanguage: "en"
+      enableQueueCleaner: "true"
+      matchDistance: 5
+      enableBeetsTagging: "true"
+      beetsMatchPercentage: 90
+      retryNotFound: 90
+    volumes:
+      - "${DOCKER_APPDATA_PATH}/lidarr_config:/config"
+      - "${DOCKER_DATA_PATH}/Music:/music"
+      - "lidarr_cache:/downloads-lidarr-extended"
+
+volumes:
+  lidarr_cache:

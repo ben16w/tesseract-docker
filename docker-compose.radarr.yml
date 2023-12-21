@@ -1,0 +1,23 @@
+---
+version: "2.1"
+
+services:
+  radarr:
+    image: lscr.io/linuxserver/radarr:latest
+    container_name: radarr
+    restart: always
+    ports:
+      - 7878:7878
+    environment:
+      PUID: "${DOCKER_UID}"
+      PGID: "${DOCKER_GID}"
+      TZ: "${DOCKER_TZ}"
+      DOCKER_MODS: ghcr.io/gilbn/theme.park:radarr
+      TP_THEME: overseerr
+    volumes:
+      - "${DOCKER_APPDATA_PATH}/radarr_config:/config"
+      - "${DOCKER_DATA_PATH}/Movies:/movies"
+      - transmission_cache:/downloads
+
+volumes:
+  transmission_cache:

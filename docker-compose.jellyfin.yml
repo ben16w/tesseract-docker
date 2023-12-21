@@ -1,0 +1,22 @@
+---
+version: "2.1"
+
+services:
+  jellyfin:
+    image: ghcr.io/linuxserver/jellyfin
+    container_name: jellyfin
+    restart: always
+    ports:
+      - 8096:8096 # UI
+      - 7359:7359/udp # optional
+      - 1900:1900/udp # optional
+    environment:
+      PUID: "${DOCKER_UID}"
+      PGID: "${DOCKER_GID}"
+      TZ: "${DOCKER_TZ}"
+    devices:
+      - /dev/dri:/dev/dri  # vaapi encoding
+    volumes:
+      - "${DOCKER_APPDATA_PATH}/jellyfin_config:/config"
+      - "${DOCKER_DATA_PATH}/Tvshows:/data/tvshows:ro"
+      - "${DOCKER_DATA_PATH}/Movies:/data/movies:ro"

@@ -1,0 +1,21 @@
+---
+version: "2.1"
+
+services:
+  romm:
+    image: zurdi15/romm:latest
+    container_name: romm
+    restart: always
+    ports:
+      - 8098:8080
+    environment:
+      ROMM_DB_DRIVER: sqlite
+      ROMM_AUTH_ENABLED: false
+      # Used to fetch metadata from IGDB
+      IGDB_CLIENT_ID: "${DOCKER_ROMM_IGDB_CLIENT_ID}"
+      IGDB_CLIENT_SECRET: "${DOCKER_OMM_IGDB_CLIENT_SECRET}"
+      # Use SteamGridDB as a source for covers
+      STEAMGRIDDB_API_KEY: "${DOCKER_OMM_STEAMGRIDDB_API_KEY}"
+    volumes:
+      - "${DOCKER_APPDATA_PATH}/romm_data:/romm"
+      - "${DOCKER_DATA_PATH}/Games/ROMs:/romm/library"

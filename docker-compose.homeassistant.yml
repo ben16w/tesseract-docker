@@ -1,0 +1,16 @@
+---
+
+version: '2.1'
+
+services:
+  homeassistant:
+    container_name: homeassistant
+    image: "ghcr.io/home-assistant/home-assistant:stable"
+    restart: always
+    #privileged: true
+    #network_mode: host
+    ports:
+      - 8123:8123
+    volumes:
+      - "${DOCKER_APPDATA_PATH}/homeassistant_config:/config"
+      - /etc/localtime:/etc/localtime:ro

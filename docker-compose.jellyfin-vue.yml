@@ -1,0 +1,12 @@
+---
+version: "2.1"
+
+services:
+  jellyfin-vue:
+    image: jellyfin/jellyfin-vue:unstable
+    container_name: jellyfin-vue
+    restart: always
+    ports:
+      - 8084:80
+    environment:
+      DEFAULT_SERVERS: "https://watch.${DOCKER_DOMAIN}"

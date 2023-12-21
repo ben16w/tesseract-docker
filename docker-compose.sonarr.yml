@@ -1,0 +1,23 @@
+---
+version: "2.1"
+
+services:
+  sonarr:
+    image: lscr.io/linuxserver/sonarr:latest
+    container_name: sonarr
+    restart: always
+    ports:
+      - 8989:8989
+    environment:
+      PUID: "${DOCKER_UID}"
+      PGID: "${DOCKER_GID}"
+      TZ: "${DOCKER_TZ}"
+      DOCKER_MODS: ghcr.io/gilbn/theme.park:sonarr
+      TP_THEME: overseerr
+    volumes:
+      - "${DOCKER_APPDATA_PATH}/sonarr_config:/config"
+      - "${DOCKER_DATA_PATH}/Tvshows:/tv"
+      - transmission_cache:/transmission_cache
+
+volumes:
+  transmission_cache:

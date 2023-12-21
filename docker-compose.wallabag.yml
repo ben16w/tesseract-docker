@@ -1,0 +1,23 @@
+---
+version: "2.1"
+
+services:
+  wallabag:
+    image: wallabag/wallabag
+    container_name: wallabag
+    restart: always
+    ports:
+      - 8076:80
+    environment:
+      SYMFONY__ENV__DOMAIN_NAME: "https://wall.${DOCKER_DOMAIN}"
+      SYMFONY__ENV__SERVER_NAME: "Your wallabag instance"
+      SYMFONY__ENV__FOSUSER_CONFIRMATION: "false"
+
+      SYMFONY__ENV__MAILER_HOST: ${DOCKER_EMAIL_HOST}
+      SYMFONY__ENV__MAILER_USER: ${DOCKER_EMAIL_USERNAME}
+      SYMFONY__ENV__MAILER_PASSWORD: "${DOCKER_EMAIL_PASSORD}"
+      SYMFONY__ENV__FROM_EMAIL: ${DOCKER_EMAIL_USERNAME}
+
+    volumes:
+      - ${DOCKER_APPDATA_PATH}/wallabag_data:/var/www/wallabag/data
+      - ${DOCKER_APPDATA_PATH}/wallabag_images:/var/www/wallabag/web/assets/images

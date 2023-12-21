@@ -1,0 +1,42 @@
+---
+version: "2.1"
+
+services:
+  tandoor:
+    image: vabene1111/recipes:latest
+    container_name: tandoor
+    restart: always
+    depends_on:
+      - tandoor_db
+    ports:
+      - "8083:8080"
+    environment:
+      #ALLOWED_HOSTS: *
+      FRACTION_PREF_DEFAULT: 1
+      COMMENT_PREF_DEFAULT: 1
+      ENABLE_SIGNUP: 0
+      #GUNICORN_MEDIA: 0
+      TIMEZONE: "${DOCKER_TZ}"
+      SECRET_KEY: "${DOCKER_SQL_PASSWORD}"
+      DB_ENGINE: django.db.backends.postgresql
+      DEBUG: 0
+      POSTGRES_HOST: tandoor_db
+      POSTGRES_PORT: 5432
+      POSTGRES_USER: "tandoor_user"
+      POSTGRES_PASSWORD: "${DOCKER_SQL_PASSWORD}"
+      POSTGRES_DB: "tandoor_database"
+    volumes:
+      - "${DOCKER_APPDATA_PATH}/tandoor_staticfiles:/opt/recipes/staticfiles"
+      - "${DOCKER_APPDATA_PATH}/tandoor_mediafiles:/opt/recipes/mediafiles"
+
+  tandoor_db:
+    image: postgres:11-alpine
+    container_name: tandoor_db
+    restart: always
+    environment:
+      POSTGRES_PORT: 5432
+      POSTGRES_USER: "tandoor_user"
+      POSTGRES_PASSWORD: "${DOCKER_SQL_PASSWORD}"
+      POSTGRES_DB: "tandoor_database"
+    volumes:
+      - "${DOCKER_APPDATA_PATH}/tandoor_db:/var/lib/postgresql/data"
