@@ -49,7 +49,7 @@ services:
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
       - "${DOCKER_APPDATA_PATH}/gitea_config:/etc/gitea"
-      - "${DOCKER_DATA_PATH}/Repositories:/var/lib/gitea"
+      - "${DOCKER_APPDATA_PATH}/gitea_repositories:/var/lib/gitea"
 
   gitea_db:
     image: ghcr.io/linuxserver/mariadb
