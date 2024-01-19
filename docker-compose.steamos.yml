@@ -1,0 +1,42 @@
+---
+version: "2.1"
+
+services:
+  steamos:
+    image: lscr.io/linuxserver/steamos:latest
+    container_name: steamos
+    hostname: steamos
+    restart: always
+    ports:
+      - 3000:3000
+      - 3001:3001
+      - 27031-27036:27031-27036/udp
+      - 27031-27036:27031-27036
+    devices:
+      - /dev/dri:/dev/dri
+    shm_size: 2G
+    cap_add:
+      - NET_ADMIN
+    security_opt:
+      - seccomp:unconfined
+      - apparmor:unconfined
+    environment:
+      PUID: "${DOCKER_UID}"
+      PGID: "${DOCKER_GID}"
+      TZ: "${DOCKER_TZ}"
+      DRINODE: "/dev/dri/renderD129"
+      HOST_IP: "192.168.1.6"
+      STARTUP: "KDE"
+      RESOLUTION: "1920x1080"
+    volumes:
+      - /dev/input:/dev/input
+      - /run/udev/data:/run/udev/data
+
+      - "${DOCKER_APPDATA_PATH}/steamos_config:/config"
+      - "${DOCKER_DATA_PATH}/Games:/mnt/games"
+      - steam_games:/mnt/steam_games
+      - steam_flatpak:/var/lib/flatpak
+
+volumes:
+  steam_flatpak:
+  steam_games:
