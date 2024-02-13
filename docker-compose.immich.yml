@@ -30,8 +30,10 @@ services:
     container_name: immich_microservices
     restart: always
     command: [ "start.sh", "microservices" ]
+    device_cgroup_rules:
+      - "c 189:* rmw"
     devices:
-      - /dev/dri:/dev/dri  # Intel QuickSync or VAAPI HW Acceleration
+      - /dev/dri:/dev/dri
     environment:
       DB_HOSTNAME: immich_db
       DB_USERNAME: immich_user
@@ -44,27 +46,33 @@ services:
       - immich_redis
       - immich_db
     volumes:
+      - /dev/bus/usb:/dev/bus/usb
       - /etc/localtime:/etc/localtime:ro
       - ${DOCKER_APPDATA_PATH}/immich_upload:/usr/src/app/upload
       - ${DOCKER_DATA_PATH}/Immich/library:/usr/src/app/upload/library
 
   immich_ml:
-    image: ghcr.io/immich-app/immich-machine-learning:release
+    image: ghcr.io/immich-app/immich-machine-learning:release-openvino
     container_name: immich_ml
     restart: always
+    device_cgroup_rules:
+      - "c 189:* rmw"
+    devices:
+      - /dev/dri:/dev/dri
     environment:
       REDIS_HOSTNAME: immich_redis
       UPLOAD_LOCATION: ./upload
     volumes:
+      - /dev/bus/usb:/dev/bus/usb
       - immich_ml_cache:/cache
 
   immich_redis:
-    image: redis:6.2-alpine@sha256:80cc8518800438c684a53ed829c621c94afd1087aaeb59b0d4343ed3e7bcf6c5
+    image: redis:6.2-alpine@sha256:51d6c56749a4243096327e3fb964a48ed92254357108449cb6e23999c37773c
     container_name: immich_redis
     restart: always
 
   immich_db:
-    image: tensorchord/pgvecto-rs:pg14-v0.1.11
+    image: tensorchord/pgvecto-rs:pg14-v0.2.0@sha256:90724186f0a3517cf6914295b5ab410db9ce23190a2d9d0b9dd6463e3fa298f
     container_name: immich_db
     restart: always
     environment:
