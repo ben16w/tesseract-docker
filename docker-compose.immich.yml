@@ -22,8 +22,7 @@ services:
       - immich_db
     volumes:
       - /etc/localtime:/etc/localtime:ro
-      - ${DOCKER_APPDATA_PATH}/immich_upload:/usr/src/app/upload
-      - ${DOCKER_DATA_PATH}/Immich/library:/usr/src/app/upload/library
+      - ${DOCKER_DATA_PATH}/Immich:/usr/src/app/upload
 
   immich_microservices:
     image: ghcr.io/immich-app/immich-server:release
@@ -48,8 +47,7 @@ services:
     volumes:
       - /dev/bus/usb:/dev/bus/usb
       - /etc/localtime:/etc/localtime:ro
-      - ${DOCKER_APPDATA_PATH}/immich_upload:/usr/src/app/upload
-      - ${DOCKER_DATA_PATH}/Immich/library:/usr/src/app/upload/library
+      - ${DOCKER_DATA_PATH}/Immich:/usr/src/app/upload
 
   immich_ml:
     image: ghcr.io/immich-app/immich-machine-learning:release-openvino
