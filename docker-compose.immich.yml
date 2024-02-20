@@ -50,9 +50,6 @@ services:
     image: ghcr.io/immich-app/immich-machine-learning:release
     container_name: immich_ml
     restart: always
-    environment:
-      REDIS_HOSTNAME: immich_redis
-      UPLOAD_LOCATION: ./upload
     volumes:
       - immich_ml_cache:/cache
 
@@ -69,7 +66,6 @@ services:
       POSTGRES_PASSWORD: ${DOCKER_SQL_PASSWORD}
       POSTGRES_USER: immich_user
       POSTGRES_DB: immich_database
-      PG_DATA: /var/lib/postgresql/data
     volumes:
       - ${DOCKER_APPDATA_PATH}/immich_db:/var/lib/postgresql/data
 
