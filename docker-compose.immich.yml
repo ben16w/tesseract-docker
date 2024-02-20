@@ -29,8 +29,6 @@ services:
     container_name: immich_microservices
     restart: always
     command: [ "start.sh", "microservices" ]
-    device_cgroup_rules:
-      - "c 189:* rmw"
     devices:
       - /dev/dri:/dev/dri
     environment:
@@ -45,23 +43,17 @@ services:
       - immich_redis
       - immich_db
     volumes:
-      - /dev/bus/usb:/dev/bus/usb
       - /etc/localtime:/etc/localtime:ro
       - ${DOCKER_DATA_PATH}/Immich:/usr/src/app/upload
 
   immich_ml:
-    image: ghcr.io/immich-app/immich-machine-learning:release-openvino
+    image: ghcr.io/immich-app/immich-machine-learning:release
     container_name: immich_ml
     restart: always
-    device_cgroup_rules:
-      - "c 189:* rmw"
-    devices:
-      - /dev/dri:/dev/dri
     environment:
       REDIS_HOSTNAME: immich_redis
       UPLOAD_LOCATION: ./upload
     volumes:
-      - /dev/bus/usb:/dev/bus/usb
       - immich_ml_cache:/cache
 
   immich_redis:
