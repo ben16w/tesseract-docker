@@ -44,7 +44,7 @@ services:
       ENABLE_VNC_AUDIO: 'false'
       ENABLE_STEAM: 'true'
       STEAM_ARGS: '-tenfoot'
-      ENABLE_SUNSHINE: 'false'
+      ENABLE_SUNSHINE: 'true'
       ENABLE_EVDEV_INPUTS: 'true'
 
     volumes:
