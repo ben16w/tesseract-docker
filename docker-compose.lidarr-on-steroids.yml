@@ -1,0 +1,25 @@
+---
+version: "2.1"
+
+services:
+  lidarr:
+    image: youegraillot/lidarr-on-steroids
+    container_name: lidarr
+    restart: always
+    ports:
+      - "8686:8686" # Lidarr web UI
+      - "6595:6595" # Deemix web UI
+    environment:
+      PUID: "${DOCKER_UID}"
+      PGID: "${DOCKER_GID}"
+      AUTOCONFIG: true
+      FLAC2CUSTOM_ARGS: "-v 0"
+      CLEAN_DOWNLOADS: true
+    volumes:
+      - "${DOCKER_APPDATA_PATH}/lidarr_config:/config"
+      - "${DOCKER_APPDATA_PATH}/lidarr_deemix:/config_deemix"
+      - "${DOCKER_DATA_PATH}/Music:/music"
+      - lidarr_downloads:/downloads
+
+volumes:
+  lidarr_downloads:
