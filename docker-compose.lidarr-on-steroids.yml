@@ -12,9 +12,9 @@ services:
     environment:
       PUID: "${DOCKER_UID}"
       PGID: "${DOCKER_GID}"
-      AUTOCONFIG: true
+      AUTOCONFIG: "true"
       FLAC2CUSTOM_ARGS: "-v 0"
-      CLEAN_DOWNLOADS: true
+      CLEAN_DOWNLOADS: "true"
     volumes:
       - "${DOCKER_APPDATA_PATH}/lidarr_config:/config"
       - "${DOCKER_APPDATA_PATH}/lidarr_deemix:/config_deemix"
