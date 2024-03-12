@@ -8,14 +8,30 @@ services:
     restart: always
     ports:
       - 8098:8080
+    depends_on:
+      - romm_db
     environment:
-      ROMM_DB_DRIVER: sqlite
-      ROMM_AUTH_ENABLED: false
-      # Used to fetch metadata from IGDB
-      IGDB_CLIENT_ID: "${DOCKER_ROMM_IGDB_CLIENT_ID}"
-      IGDB_CLIENT_SECRET: "${DOCKER_OMM_IGDB_CLIENT_SECRET}"
-      # Use SteamGridDB as a source for covers
-      STEAMGRIDDB_API_KEY: "${DOCKER_OMM_STEAMGRIDDB_API_KEY}"
+      DB_HOST: romm_db
+      DB_NAME: romm_database
+      DB_USER: romm_user
+      DB_PASSWD: "${DOCKER_SQL_PASSWORD}"
+      IGDB_CLIENT_ID: "${DOCKER_IGDB_CLIENT_ID}"
+      IGDB_CLIENT_SECRET: "${DOCKER_IGDB_CLIENT_SECRET}"
+      ROMM_AUTH_SECRET_KEY: "${DOCKER_ROMM_AUTH_SECRET_KEY}"
+      ROMM_AUTH_USERNAME: "${DOCKER_DOCKER_USERNAME}"
+      ROMM_AUTH_PASSWORD: "${DOCKER_DOCKER_PASSWORD}"
     volumes:
       - "${DOCKER_APPDATA_PATH}/romm_data:/romm"
       - "${DOCKER_DATA_PATH}/Games/ROMs:/romm/library"
+
+  romm_db:
+    image: mariadb:latest
+    container_name: romm_db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: "${DOCKER_SQL_PASSWORD}"
+      MYSQL_DATABASE: romm_database
+      MYSQL_USER: romm_user
+      MYSQL_PASSWORD: "${DOCKER_SQL_PASSWORD}"
+    volumes:
+      - "${DOCKER_APPDATA_PATH}/romm_db:/var/lib/mysql"
