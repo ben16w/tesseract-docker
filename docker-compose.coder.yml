@@ -9,11 +9,11 @@ services:
     ports:
       - "7080:7080"
     group_add:
-      - "${DOCKER_DOCKER_GROUP}" # docker group on host
+      - "${TESSERACT_DOCKER_GROUP}" # docker group on host
     environment:
       CODER_HTTP_ADDRESS: "0.0.0.0:7080"
-      CODER_ACCESS_URL: "http://code.${DOCKER_DOMAIN}"
+      CODER_ACCESS_URL: "http://code.${TESSERACT_DOMAIN}"
       CODER_DATA: "$HOME/.config/coderv2-docker"
     volumes:
-      - "${DOCKER_APPDATA_PATH}/coder_config:/home/coder/.config"
+      - "${TESSERACT_APPDATA_PATH}/coder_config:/home/coder/.config"
       - /var/run/docker.sock:/var/run/docker.sock

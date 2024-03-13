@@ -18,9 +18,9 @@ services:
     #  - 8266:8266 # server port
     #  - 8267:8267 # Internal node port
     environment:
-      - TZ=${DOCKER_TZ}
-      - PUID=${DOCKER_UID}
-      - PGID=${DOCKER_GID}
+      - TZ=${TESSERACT_TZ}
+      - PUID=${TESSERACT_UID}
+      - PGID=${TESSERACT_GID}
       - UMASK_SET=002
       - serverIP=0.0.0.0
       - serverPort=8266
@@ -30,14 +30,14 @@ services:
     devices:
       - /dev/dri:/dev/dri # For H/W transcoding using the VAAPI encoder
     volumes:
-      - ${DOCKER_APPDATA_PATH}/tdarr_server:/app/server
-      - ${DOCKER_APPDATA_PATH}/tdarr_configs:/app/configs
-      - ${DOCKER_APPDATA_PATH}/tdarr_logs:/app/logs
+      - ${TESSERACT_APPDATA_PATH}/tdarr_server:/app/server
+      - ${TESSERACT_APPDATA_PATH}/tdarr_configs:/app/configs
+      - ${TESSERACT_APPDATA_PATH}/tdarr_logs:/app/logs
 
       - tdarr_cache:/temp
 
-      - "${DOCKER_DATA_PATH}/Tvshows:/tv"
-      - "${DOCKER_DATA_PATH}/Movies:/movies"
+      - "${TESSERACT_DATA_PATH}/Tvshows:/tv"
+      - "${TESSERACT_DATA_PATH}/Movies:/movies"
 
 volumes:
   tdarr_cache:

@@ -30,14 +30,14 @@ services:
     extra_hosts:
       - "hypercube:127.0.0.1"
     environment:
-      PUID: ${DOCKER_UID}
-      PGID: ${DOCKER_GID}
-      TZ: ${DOCKER_TZ}
+      PUID: ${TESSERACT_UID}
+      PGID: ${TESSERACT_GID}
+      TZ: ${TESSERACT_TZ}
       NAME: hypercube
       USER_LOCALES: 'en_US.UTF-8 UTF-8'
       DISPLAY: ':55'
       UMASK: '000'
-      USER_PASSWORD: "${DOCKER_DOCKER_PASWORD}"
+      USER_PASSWORD: "${TESSERACT_DOCKER_PASWORD}"
       MODE: 'primary'
       WEB_UI_MODE: 'vnc'
       PORT_NOVNC_WEB: '8990'
@@ -48,8 +48,8 @@ services:
       ENABLE_EVDEV_INPUTS: 'true'
 
     volumes:
-      - "${DOCKER_APPDATA_PATH}/steam_home:/home/default"
-      - "${DOCKER_DATA_PATH}/Games:/mnt/games"
+      - "${TESSERACT_APPDATA_PATH}/steam_home:/home/default"
+      - "${TESSERACT_DATA_PATH}/Games:/mnt/games"
       - steam_games:/mnt/steam_games
       - steam_flatpak:/var/lib/flatpak
 

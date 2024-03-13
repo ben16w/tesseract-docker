@@ -8,7 +8,7 @@ services:
     depends_on:
       - gitea_db
     restart: always
-    user: "${DOCKER_UID}:${DOCKER_GID}"
+    user: "${TESSERACT_UID}:${TESSERACT_GID}"
     ports:
       - "2222:2222"
       - "3001:3000"
@@ -16,14 +16,14 @@ services:
       APP_NAME: "Gitea"
       RUN_MODE: prod
 
-      GITEA__server__DOMAIN: "git.${DOCKER_DOMAIN}"
-      GITEA__server__SSH_DOMAIN: "${DOCKER_DOMAIN}"
-      GITEA__server__ROOT_URL: "http://git.${DOCKER_DOMAIN}"
+      GITEA__server__DOMAIN: "git.${TESSERACT_DOMAIN}"
+      GITEA__server__SSH_DOMAIN: "${TESSERACT_DOMAIN}"
+      GITEA__server__ROOT_URL: "http://git.${TESSERACT_DOMAIN}"
       GITEA__server__HTTP_PORT: 3000
       GITEA__server__SSH_LISTEN_PORT: 2222 # Port for the built-in SSH server.
       GITEA__server__SSH_PORT: 2222 # SSH port displayed in clone URL.
 
-      GITEA__webhook__ALLOWED_HOST_LIST: "*.${DOCKER_DOMAIN}"
+      GITEA__webhook__ALLOWED_HOST_LIST: "*.${TESSERACT_DOMAIN}"
 
       GITEA__service__REGISTER_MANUAL_CONFIRM: "true"
       GITEA__service__REQUIRE_SIGNIN_VIEW: "false"
@@ -36,32 +36,32 @@ services:
       GITEA__database__HOST: "gitea_db:3306"
       GITEA__database__NAME: "gitea_database"
       GITEA__database__USER: "gitea_user"
-      GITEA__database__PASSWD: "${DOCKER_SQL_PASSWORD}"
+      GITEA__database__PASSWD: "${TESSERACT_SQL_PASSWORD}"
 
       GITEA__mailer__ENABLED: "true"
-      GITEA__mailer__SMTP_ADDR: "${DOCKER_EMAIL_HOST}"
-      GITEA__mailer__SMTP_PORT: "${DOCKER_EMAIL_PORT}"
-      GITEA__mailer__FROM: "Gitea<${DOCKER_EMAIL_USERNAME}>"
-      GITEA__mailer__USER: "${DOCKER_EMAIL_USERNAME}"
-      GITEA__mailer__PASSWD: "${DOCKER_EMAIL_PASSORD}"
+      GITEA__mailer__SMTP_ADDR: "${TESSERACT_EMAIL_HOST}"
+      GITEA__mailer__SMTP_PORT: "${TESSERACT_EMAIL_PORT}"
+      GITEA__mailer__FROM: "Gitea<${TESSERACT_EMAIL_USERNAME}>"
+      GITEA__mailer__USER: "${TESSERACT_EMAIL_USERNAME}"
+      GITEA__mailer__PASSWD: "${TESSERACT_EMAIL_PASSORD}"
 
     volumes:
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
-      - "${DOCKER_APPDATA_PATH}/gitea_config:/etc/gitea"
-      - "${DOCKER_APPDATA_PATH}/gitea_repositories:/var/lib/gitea"
+      - "${TESSERACT_APPDATA_PATH}/gitea_config:/etc/gitea"
+      - "${TESSERACT_APPDATA_PATH}/gitea_repositories:/var/lib/gitea"
 
   gitea_db:
     image: ghcr.io/linuxserver/mariadb
     container_name: gitea_db
     restart: always
     environment:
-      PUID: "${DOCKER_UID}"
-      PGID: "${DOCKER_GID}"
-      TZ: "${DOCKER_TZ}"
-      MYSQL_ROOT_PASSWORD: "${DOCKER_SQL_PASSWORD}"
+      PUID: "${TESSERACT_UID}"
+      PGID: "${TESSERACT_GID}"
+      TZ: "${TESSERACT_TZ}"
+      MYSQL_ROOT_PASSWORD: "${TESSERACT_SQL_PASSWORD}"
       MYSQL_USER: "gitea_user"
-      MYSQL_PASSWORD: "${DOCKER_SQL_PASSWORD}"
+      MYSQL_PASSWORD: "${TESSERACT_SQL_PASSWORD}"
       MYSQL_DATABASE: "gitea_database"
     volumes:
-      - ${DOCKER_APPDATA_PATH}/gitea_db:/config
+      - ${TESSERACT_APPDATA_PATH}/gitea_db:/config

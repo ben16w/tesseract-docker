@@ -9,15 +9,15 @@ services:
     ports:
       - 8005:80
     environment:
-      DRONE_SERVER_HOST: "drone.${DOCKER_DOMAIN}"
+      DRONE_SERVER_HOST: "drone.${TESSERACT_DOMAIN}"
       DRONE_SERVER_PROTO: http
 
-      DRONE_USER_CREATE: "username:${DOCKER_DOCKER_USERNAME},admin:true"
+      DRONE_USER_CREATE: "username:${TESSERACT_DOCKER_USERNAME},admin:true"
 
-      DRONE_GITEA_SERVER: "http://git.${DOCKER_DOMAIN}"
-      DRONE_GITEA_CLIENT_ID: "${DOCKER_GITEA_CLIENT_ID}"
-      DRONE_GITEA_CLIENT_SECRET: "${DOCKER_GITEA_CLIENT_SECRET}"
-      DRONE_RPC_SECRET: "${DOCKER_DRONE_SECRET}"
+      DRONE_GITEA_SERVER: "http://git.${TESSERACT_DOMAIN}"
+      DRONE_GITEA_CLIENT_ID: "${TESSERACT_GITEA_CLIENT_ID}"
+      DRONE_GITEA_CLIENT_SECRET: "${TESSERACT_GITEA_CLIENT_SECRET}"
+      DRONE_RPC_SECRET: "${TESSERACT_DRONE_SECRET}"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - "${DOCKER_APPDATA_PATH}/drone_data:/var/lib/drone"
+      - "${TESSERACT_APPDATA_PATH}/drone_data:/var/lib/drone"

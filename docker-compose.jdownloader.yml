@@ -10,9 +10,9 @@ services:
     ports:
       - "5800:5800"
     environment:
-      USER_ID: "${DOCKER_UID}"
-      GROUP_ID: "${DOCKER_GID}"
-      TZ: "${DOCKER_TZ}"
+      USER_ID: "${TESSERACT_UID}"
+      GROUP_ID: "${TESSERACT_GID}"
+      TZ: "${TESSERACT_TZ}"
     volumes:
-      - "${DOCKER_APPDATA_PATH}/jdownloader_config:/config"
-      - "${DOCKER_DATA_PATH}/Downloads/jdownloader:/output"
+      - "${TESSERACT_APPDATA_PATH}/jdownloader_config:/config"
+      - "${TESSERACT_DATA_PATH}/Downloads/jdownloader:/output"

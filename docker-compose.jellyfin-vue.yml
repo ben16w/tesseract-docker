@@ -9,4 +9,4 @@ services:
     ports:
       - 8084:80
     environment:
-      DEFAULT_SERVERS: "https://watch.${DOCKER_DOMAIN}"
+      DEFAULT_SERVERS: "https://watch.${TESSERACT_DOMAIN}"

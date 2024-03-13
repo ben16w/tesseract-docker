@@ -16,18 +16,18 @@ services:
       COMMENT_PREF_DEFAULT: 1
       ENABLE_SIGNUP: 0
       #GUNICORN_MEDIA: 0
-      TIMEZONE: "${DOCKER_TZ}"
-      SECRET_KEY: "${DOCKER_SQL_PASSWORD}"
+      TIMEZONE: "${TESSERACT_TZ}"
+      SECRET_KEY: "${TESSERACT_SQL_PASSWORD}"
       DB_ENGINE: django.db.backends.postgresql
       DEBUG: 0
       POSTGRES_HOST: tandoor_db
       POSTGRES_PORT: 5432
       POSTGRES_USER: "tandoor_user"
-      POSTGRES_PASSWORD: "${DOCKER_SQL_PASSWORD}"
+      POSTGRES_PASSWORD: "${TESSERACT_SQL_PASSWORD}"
       POSTGRES_DB: "tandoor_database"
     volumes:
-      - "${DOCKER_APPDATA_PATH}/tandoor_staticfiles:/opt/recipes/staticfiles"
-      - "${DOCKER_APPDATA_PATH}/tandoor_mediafiles:/opt/recipes/mediafiles"
+      - "${TESSERACT_APPDATA_PATH}/tandoor_staticfiles:/opt/recipes/staticfiles"
+      - "${TESSERACT_APPDATA_PATH}/tandoor_mediafiles:/opt/recipes/mediafiles"
 
   tandoor_db:
     image: postgres:11-alpine
@@ -36,7 +36,7 @@ services:
     environment:
       POSTGRES_PORT: 5432
       POSTGRES_USER: "tandoor_user"
-      POSTGRES_PASSWORD: "${DOCKER_SQL_PASSWORD}"
+      POSTGRES_PASSWORD: "${TESSERACT_SQL_PASSWORD}"
       POSTGRES_DB: "tandoor_database"
     volumes:
-      - "${DOCKER_APPDATA_PATH}/tandoor_db:/var/lib/postgresql/data"
+      - "${TESSERACT_APPDATA_PATH}/tandoor_db:/var/lib/postgresql/data"

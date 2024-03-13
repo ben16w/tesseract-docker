@@ -9,11 +9,11 @@ services:
     ports:
       - 8686:8686
     environment:
-      PUID: "${DOCKER_UID}"
-      PGID: "${DOCKER_GID}"
-      TZ: "${DOCKER_TZ}"
-      DOCKER_MODS: linuxserver/mods:lidarr-flac2mp3
+      PUID: "${TESSERACT_UID}"
+      PGID: "${TESSERACT_GID}"
+      TZ: "${TESSERACT_TZ}"
+      TESSERACT_MODS: linuxserver/mods:lidarr-flac2mp3
     volumes:
-      - "${DOCKER_APPDATA_PATH}/lidarr_config:/config"
-      - "${DOCKER_DATA_PATH}/Music:/music"
-      - "${DOCKER_DATA_PATH}/Downloads/completed:/downloads"
+      - "${TESSERACT_APPDATA_PATH}/lidarr_config:/config"
+      - "${TESSERACT_DATA_PATH}/Music:/music"
+      - "${TESSERACT_DATA_PATH}/Downloads/completed:/downloads"

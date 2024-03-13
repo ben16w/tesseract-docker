@@ -9,12 +9,12 @@ services:
     ports:
       - 6767:6767
     environment:
-      PUID: "${DOCKER_UID}"
-      PGID: "${DOCKER_GID}"
-      TZ: "${DOCKER_TZ}"
-      DOCKER_MODS: ghcr.io/gilbn/theme.park:bazarr
+      PUID: "${TESSERACT_UID}"
+      PGID: "${TESSERACT_GID}"
+      TZ: "${TESSERACT_TZ}"
+      TESSERACT_MODS: ghcr.io/gilbn/theme.park:bazarr
       TP_THEME: overseerr
     volumes:
-      - "${DOCKER_APPDATA_PATH}/bazarr_config:/config"
-      - "${DOCKER_DATA_PATH}/Movies:/movies"
-      - "${DOCKER_DATA_PATH}/Tvshows:/tv"
+      - "${TESSERACT_APPDATA_PATH}/bazarr_config:/config"
+      - "${TESSERACT_DATA_PATH}/Movies:/movies"
+      - "${TESSERACT_DATA_PATH}/Tvshows:/tv"

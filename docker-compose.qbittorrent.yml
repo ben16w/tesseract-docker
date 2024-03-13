@@ -12,10 +12,10 @@ services:
     #   - 6881:6881
     #   - 6881:6881/udp
     environment:
-      PUID: "${DOCKER_UID}"
-      PGID: "${DOCKER_GID}"
-      TZ: "${DOCKER_TZ}"
+      PUID: "${TESSERACT_UID}"
+      PGID: "${TESSERACT_GID}"
+      TZ: "${TESSERACT_TZ}"
       WEBUI_PORT: 8112
     volumes:
-      - "${DOCKER_APPDATA_PATH}/qbittorrent_config:/config"
-      - "${DOCKER_DATA_PATH}/Downloads/qbittorrent:/downloads"
+      - "${TESSERACT_APPDATA_PATH}/qbittorrent_config:/config"
+      - "${TESSERACT_DATA_PATH}/Downloads/qbittorrent:/downloads"

@@ -9,14 +9,14 @@ services:
     ports:
       - 8989:8989
     environment:
-      PUID: "${DOCKER_UID}"
-      PGID: "${DOCKER_GID}"
-      TZ: "${DOCKER_TZ}"
-      DOCKER_MODS: ghcr.io/gilbn/theme.park:sonarr
+      PUID: "${TESSERACT_UID}"
+      PGID: "${TESSERACT_GID}"
+      TZ: "${TESSERACT_TZ}"
+      TESSERACT_MODS: ghcr.io/gilbn/theme.park:sonarr
       TP_THEME: overseerr
     volumes:
-      - "${DOCKER_APPDATA_PATH}/sonarr_config:/config"
-      - "${DOCKER_DATA_PATH}/Tvshows:/tv"
+      - "${TESSERACT_APPDATA_PATH}/sonarr_config:/config"
+      - "${TESSERACT_DATA_PATH}/Tvshows:/tv"
       - transmission_cache:/transmission_cache
 
 volumes:

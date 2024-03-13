@@ -14,6 +14,6 @@ services:
       - KASM_PORT=443
       - TZ=Europe/London
     volumes:
-      #- "${DOCKER_APPDATA_PATH}/kasm_data:/opt" # Big folder, relocated below
+      #- "${TESSERACT_APPDATA_PATH}/kasm_data:/opt" # Big folder, relocated below
       - "/root/kasm_data:/opt"
-      - "${DOCKER_APPDATA_PATH}/kasm_profiles:/profiles"
+      - "${TESSERACT_APPDATA_PATH}/kasm_profiles:/profiles"

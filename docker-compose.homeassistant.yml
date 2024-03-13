@@ -12,5 +12,5 @@ services:
     ports:
       - 8123:8123
     volumes:
-      - "${DOCKER_APPDATA_PATH}/homeassistant_config:/config"
+      - "${TESSERACT_APPDATA_PATH}/homeassistant_config:/config"
       - /etc/localtime:/etc/localtime:ro

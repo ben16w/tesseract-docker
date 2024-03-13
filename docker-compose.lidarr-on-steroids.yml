@@ -10,15 +10,15 @@ services:
       - "8686:8686" # Lidarr web UI
       - "6595:6595" # Deemix web UI
     environment:
-      PUID: "${DOCKER_UID}"
-      PGID: "${DOCKER_GID}"
+      PUID: "${TESSERACT_UID}"
+      PGID: "${TESSERACT_GID}"
       AUTOCONFIG: "true"
       FLAC2CUSTOM_ARGS: "-v 0"
       CLEAN_DOWNLOADS: "true"
     volumes:
-      - "${DOCKER_APPDATA_PATH}/lidarr_config:/config"
-      - "${DOCKER_APPDATA_PATH}/lidarr_deemix:/config_deemix"
-      - "${DOCKER_DATA_PATH}/Music:/music"
+      - "${TESSERACT_APPDATA_PATH}/lidarr_config:/config"
+      - "${TESSERACT_APPDATA_PATH}/lidarr_deemix:/config_deemix"
+      - "${TESSERACT_DATA_PATH}/Music:/music"
       - lidarr_downloads:/downloads
 
 volumes:

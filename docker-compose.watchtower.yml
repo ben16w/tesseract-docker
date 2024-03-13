@@ -7,7 +7,7 @@ services:
     container_name: watchtower
     restart: always
     environment:
-      TZ: "${DOCKER_TZ}"
+      TZ: "${TESSERACT_TZ}"
       WATCHTOWER_CLEANUP: "true"
       WATCHTOWER_SCHEDULE: "0 0 6 * * *"
     volumes:

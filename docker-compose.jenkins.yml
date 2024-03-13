@@ -14,4 +14,4 @@ services:
       JENKINS_JAVA_OPTS: "-Dhudson.util.ProcessTree.disable=true"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - ${DOCKER_APPDATA_PATH}/jenkins_config:/var/jenkins_home
+      - ${TESSERACT_APPDATA_PATH}/jenkins_config:/var/jenkins_home

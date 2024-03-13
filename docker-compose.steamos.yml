@@ -21,9 +21,9 @@ services:
       - seccomp:unconfined
       - apparmor:unconfined
     environment:
-      PUID: "${DOCKER_UID}"
-      PGID: "${DOCKER_GID}"
-      TZ: "${DOCKER_TZ}"
+      PUID: "${TESSERACT_UID}"
+      PGID: "${TESSERACT_GID}"
+      TZ: "${TESSERACT_TZ}"
       DRINODE: "/dev/dri/renderD129"
       HOST_IP: "192.168.1.6"
       STARTUP: "KDE"
@@ -32,8 +32,8 @@ services:
       - /dev/input:/dev/input
       - /run/udev/data:/run/udev/data
 
-      - "${DOCKER_APPDATA_PATH}/steamos_config:/config"
-      - "${DOCKER_DATA_PATH}/Games:/mnt/games"
+      - "${TESSERACT_APPDATA_PATH}/steamos_config:/config"
+      - "${TESSERACT_DATA_PATH}/Games:/mnt/games"
       - steam_games:/mnt/steam_games
       - steam_flatpak:/var/lib/flatpak
 

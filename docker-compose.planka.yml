@@ -19,14 +19,14 @@ services:
           sleep 5;
         done; (exit $$s)"
     environment:
-      BASE_URL: "http://boards.${DOCKER_DOMAIN}"
+      BASE_URL: "http://boards.${TESSERACT_DOMAIN}"
       TRUST_PROXY: 0
       DATABASE_URL: postgresql://postgres@planka_db/planka
-      SECRET_KEY: "${DOCKER_PLANKA_SECRET_KEY}"
+      SECRET_KEY: "${TESSERACT_PLANKA_SECRET_KEY}"
     volumes:
-      - "${DOCKER_APPDATA_PATH}/planka_avatars:/app/public/user-avatars"
-      - "${DOCKER_APPDATA_PATH}/planka_images:/app/public/project-background-images"
-      - "${DOCKER_APPDATA_PATH}/planka_attachments:/app/private/attachments"
+      - "${TESSERACT_APPDATA_PATH}/planka_avatars:/app/public/user-avatars"
+      - "${TESSERACT_APPDATA_PATH}/planka_images:/app/public/project-background-images"
+      - "${TESSERACT_APPDATA_PATH}/planka_attachments:/app/private/attachments"
 
   planka_db:
     image: postgres:14-alpine
@@ -36,4 +36,4 @@ services:
       POSTGRES_DB: planka
       POSTGRES_HOST_AUTH_METHOD: trust
     volumes:
-      - "${DOCKER_APPDATA_PATH}/planka_db:/var/lib/postgresql/data"
+      - "${TESSERACT_APPDATA_PATH}/planka_db:/var/lib/postgresql/data"

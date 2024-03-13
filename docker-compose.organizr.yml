@@ -9,8 +9,8 @@ services:
         ports:
             - 80:80
         environment:
-            PUID: "${DOCKER_UID}"
-            PGID: "${DOCKER_GID}"
-            TZ: "${DOCKER_TZ}"
+            PUID: "${TESSERACT_UID}"
+            PGID: "${TESSERACT_GID}"
+            TZ: "${TESSERACT_TZ}"
         volumes:
-            - "${DOCKER_APPDATA_PATH}/organizr_config:/config"
+            - "${TESSERACT_APPDATA_PATH}/organizr_config:/config"

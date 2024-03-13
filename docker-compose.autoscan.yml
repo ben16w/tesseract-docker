@@ -9,9 +9,9 @@ services:
     ports:
       - 3030:3030
     environment:
-      PUID: ${DOCKER_UID}
-      PGID: ${DOCKER_GID}
+      PUID: ${TESSERACT_UID}
+      PGID: ${TESSERACT_GID}
     volumes:
-      - "${DOCKER_APPDATA_PATH}/autoscan_config:/config"
-      - "${DOCKER_DATA_PATH}/Movies:/media/movies"
-      - "${DOCKER_DATA_PATH}/Tvshows:/media/tvshows"
+      - "${TESSERACT_APPDATA_PATH}/autoscan_config:/config"
+      - "${TESSERACT_DATA_PATH}/Movies:/media/movies"
+      - "${TESSERACT_DATA_PATH}/Tvshows:/media/tvshows"

@@ -5,7 +5,7 @@ services:
   navidrome:
     image: deluan/navidrome:latest
     container_name: navidrome
-    user: "${DOCKER_UID}:${DOCKER_GID}"
+    user: "${TESSERACT_UID}:${TESSERACT_GID}"
     restart: always
     ports:
       - "4533:4533"
@@ -18,8 +18,8 @@ services:
       ND_TRANSCODINGCACHESIZE: "100MB"
       ND_SESSIONTIMEOUT: "24h"
       ND_DEFAULTTHEME: "Spotify-ish"
-      ND_SPOTIFY_ID: "${DOCKER_SPOTIFY_ID}"
-      ND_SPOTIFY_SECRET: "${DOCKER_SPOTIFY_SECRET}"
+      ND_SPOTIFY_ID: "${TESSERACT_SPOTIFY_ID}"
+      ND_SPOTIFY_SECRET: "${TESSERACT_SPOTIFY_SECRET}"
     volumes:
-      - "${DOCKER_APPDATA_PATH}/navidrome_data:/data"
-      - "${DOCKER_DATA_PATH}/Music:/music:ro"
+      - "${TESSERACT_APPDATA_PATH}/navidrome_data:/data"
+      - "${TESSERACT_DATA_PATH}/Music:/music:ro"

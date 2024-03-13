@@ -6,12 +6,12 @@ services:
     image: ben16w/audioserve:latest
     container_name: audioserve
     restart: always
-    #user: "${DOCKER_UID}:${DOCKER_GID}"
+    #user: "${TESSERACT_UID}:${TESSERACT_GID}"
     ports:
       - "3000:3000"
     environment:
-      AUDIOSERVE_SHARED_SECRET: "${DOCKER_DOCKER_PASSWORD}"
+      AUDIOSERVE_SHARED_SECRET: "${TESSERACT_DOCKER_PASSWORD}"
       AUDIOSERVE_BASE_DIRS: "/audio"
     volumes:
-#      - ${DOCKER_APPDATA_PATH}/audioserve_config:/home/audioserve/.audioserve
-      - "${DOCKER_DATA_PATH}/Audio:/audio:ro"
+#      - ${TESSERACT_APPDATA_PATH}/audioserve_config:/home/audioserve/.audioserve
+      - "${TESSERACT_DATA_PATH}/Audio:/audio:ro"

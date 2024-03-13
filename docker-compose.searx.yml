@@ -10,8 +10,8 @@ services:
       - 8080:8080
     environment:
       INSTANCE_NAME: Searx
-      BASE_URL: "https://search.${DOCKER_DOMAIN}"
+      BASE_URL: "https://search.${TESSERACT_DOMAIN}"
       AUTOCOMPLETE: duckduckgo
     volumes:
-      - "${DOCKER_APPDATA_PATH}/searx_config:/etc/searx"
-      - "${DOCKER_APPDATA_PATH}/searx_icons:/usr/local/searxng/searx/static/themes/simple/img"
+      - "${TESSERACT_APPDATA_PATH}/searx_config:/etc/searx"
+      - "${TESSERACT_APPDATA_PATH}/searx_icons:/usr/local/searxng/searx/static/themes/simple/img"

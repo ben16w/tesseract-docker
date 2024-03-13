@@ -25,24 +25,24 @@ For example, to start Nextcloud, run the following command:
 
 Example environment variables which can be installed in a `.env` file:
 
-        DOCKER_DATA_PATH="./data"
-        DOCKER_APPDATA_PATH="./appdata"
-        DOCKER_USERNAME='vagrant'
-        DOCKER_EMAIL_USERNAME='ben@ben.com'
-        DOCKER_EMAIL_HOST='ben.mail.com'
-        DOCKER_EMAIL_PORT='465'
-        DOCKER_EMAIL_PASSORD='password'
-        DOCKER_HOSTNAME='test.test'
-        DOCKER_DOMAIN=''
-        DOCKER_SQL_PASSWORD='password'
-        DOCKER_TZ='Europe/London'
-        DOCKER_UID='1000'
-        DOCKER_GID='1000'
-        DOCKER_DOCKER_USERNAME='ben'
-        DOCKER_DOCKER_PASSWORD='password'
-        DOCKER_VAULTWARDEN_ADMIN_TOKEN='token'
-        DOCKER_IMMICH_JWT_SECRET='secret'
-        DOCKER_PAPERLESS_SECRET_KEY='secret'
+        TESSERACT_DATA_PATH="./data"
+        TESSERACT_APPDATA_PATH="./appdata"
+        TESSERACT_USERNAME='vagrant'
+        TESSERACT_EMAIL_USERNAME='ben@ben.com'
+        TESSERACT_EMAIL_HOST='ben.mail.com'
+        TESSERACT_EMAIL_PORT='465'
+        TESSERACT_EMAIL_PASSORD='password'
+        TESSERACT_HOSTNAME='test.test'
+        TESSERACT_DOMAIN=''
+        TESSERACT_SQL_PASSWORD='password'
+        TESSERACT_TZ='Europe/London'
+        TESSERACT_UID='1000'
+        TESSERACT_GID='1000'
+        TESSERACT_DOCKER_USERNAME='ben'
+        TESSERACT_DOCKER_PASSWORD='password'
+        TESSERACT_VAULTWARDEN_ADMIN_TOKEN='token'
+        TESSERACT_IMMICH_JWT_SECRET='secret'
+        TESSERACT_PAPERLESS_SECRET_KEY='secret'
 
 ## License
 

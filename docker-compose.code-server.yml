@@ -11,15 +11,15 @@ services:
     ports:
       - 8443:8443
     environment:
-      PUID: ${DOCKER_UID}
-      PGID: ${DOCKER_GID}
-      TZ: ${DOCKER_TZ}
+      PUID: ${TESSERACT_UID}
+      PGID: ${TESSERACT_GID}
+      TZ: ${TESSERACT_TZ}
       # PASSWORD: password #optional
       # HASHED_PASSWORD:  #optional
-      SUDO_PASSWORD: ${DOCKER_DOCKER_PASSWORD}
+      SUDO_PASSWORD: ${TESSERACT_DOCKER_PASSWORD}
       # SUDO_PASSWORD_HASH:  #optional
       # PROXY_DOMAIN: code-server.my.domain #optional
       DEFAULT_WORKSPACE: /workspace #optional
     volumes:
-      - ${DOCKER_APPDATA_PATH}/code-server_config:/config
-      - /home/${DOCKER_USERNAME}/workspace:/workspace
+      - ${TESSERACT_APPDATA_PATH}/code-server_config:/config
+      - /home/${TESSERACT_USERNAME}/workspace:/workspace

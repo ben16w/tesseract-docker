@@ -10,5 +10,5 @@ services:
       - "5000:5000"
     volumes:
       - ./manga:/manga
-      - "${DOCKER_DATA_PATH}/Ebooks:/books"
-      - ${DOCKER_APPDATA_PATH}/kavita_config:/kavita/config
+      - "${TESSERACT_DATA_PATH}/Ebooks:/books"
+      - ${TESSERACT_APPDATA_PATH}/kavita_config:/kavita/config

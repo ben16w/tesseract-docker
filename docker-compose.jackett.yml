@@ -9,11 +9,11 @@ services:
     ports:
       - 9117:9117
     environment:
-      PUID: "${DOCKER_UID}"
-      PGID: "${DOCKER_GID}"
-      TZ: "${DOCKER_TZ}"
+      PUID: "${TESSERACT_UID}"
+      PGID: "${TESSERACT_GID}"
+      TZ: "${TESSERACT_TZ}"
       AUTO_UPDATE: "true" #optional
       #RUN_OPTS: <run options here> #optional
     volumes:
-      - ${DOCKER_APPDATA_PATH}/jackett_config:/config
+      - ${TESSERACT_APPDATA_PATH}/jackett_config:/config
       #- <path to blackhole>:/downloads

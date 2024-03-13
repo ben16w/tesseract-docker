@@ -7,7 +7,7 @@ services:
     image: nextcloud:25
     container_name: nextcloud
     restart: always
-    user: ${DOCKER_UID}:${DOCKER_GID}
+    user: ${TESSERACT_UID}:${TESSERACT_GID}
     depends_on:
       - nextcloud_db
       - nextcloud_broker
@@ -16,33 +16,33 @@ services:
     environment:
       MYSQL_DATABASE: nextcloud_database
       MYSQL_USER: nextcloud_user
-      MYSQL_PASSWORD: "${DOCKER_SQL_PASSWORD}"
+      MYSQL_PASSWORD: "${TESSERACT_SQL_PASSWORD}"
       MYSQL_HOST: nextcloud_db:3306
-      NEXTCLOUD_ADMIN_USER: "${DOCKER_DOCKER_USERNAME}"
-      NEXTCLOUD_ADMIN_PASSWORD: "${DOCKER_DOCKER_PASSWORD}"
+      NEXTCLOUD_ADMIN_USER: "${TESSERACT_DOCKER_USERNAME}"
+      NEXTCLOUD_ADMIN_PASSWORD: "${TESSERACT_DOCKER_PASSWORD}"
       NEXTCLOUD_DATA_DIR: /data
-      NEXTCLOUD_TRUSTED_DOMAINS: ${DOCKER_HOSTNAME} ${DOCKER_DOMAIN}
+      NEXTCLOUD_TRUSTED_DOMAINS: ${TESSERACT_HOSTNAME} ${TESSERACT_DOMAIN}
       TRUSTED_PROXIES: 192.168.1.8
 
       REDIS_HOST: nextcloud_broker # Name of Redis container (not set by default)
       REDIS_HOST_PORT: 6379
 
-      SMTP_HOST: ${DOCKER_EMAIL_HOST}
+      SMTP_HOST: ${TESSERACT_EMAIL_HOST}
       SMTP_SECURE: ssl
-      SMTP_PORT: ${DOCKER_EMAIL_PORT}
+      SMTP_PORT: ${TESSERACT_EMAIL_PORT}
       SMTP_AUTHTYPE: LOGIN
-      SMTP_NAME: "${DOCKER_EMAIL_USERNAME}"
-      SMTP_PASSWORD: "${DOCKER_EMAIL_PASSORD}"
+      SMTP_NAME: "${TESSERACT_EMAIL_USERNAME}"
+      SMTP_PASSWORD: "${TESSERACT_EMAIL_PASSORD}"
       #MAIL_FROM_ADDRESS # Use this address for the 'from' field in the emails sent by Nextcloud. (not set by default)
       #MAIL_DOMAIN  # Set a different domain for the emails than the domain where Nextcloud is installed. (not set by default)
 
     volumes:
-      - "${DOCKER_APPDATA_PATH}/nextcloud_config:/var/www/html"
-      - "${DOCKER_APPDATA_PATH}/nextcloud_redis/redis-session.ini:/usr/local/etc/php/conf.d/redis-session.ini"
+      - "${TESSERACT_APPDATA_PATH}/nextcloud_config:/var/www/html"
+      - "${TESSERACT_APPDATA_PATH}/nextcloud_redis/redis-session.ini:/usr/local/etc/php/conf.d/redis-session.ini"
 
-      - "${DOCKER_APPDATA_PATH}/nextcloud_data:/data"
-      - "${DOCKER_DATA_PATH}/Nextcloud/ben:/data/ben" # Ugly workaround
-      - "${DOCKER_DATA_PATH}/Nextcloud/ivan:/data/ivan" # Ugly workaround
+      - "${TESSERACT_APPDATA_PATH}/nextcloud_data:/data"
+      - "${TESSERACT_DATA_PATH}/Nextcloud/ben:/data/ben" # Ugly workaround
+      - "${TESSERACT_DATA_PATH}/Nextcloud/ivan:/data/ivan" # Ugly workaround
 
     labels:
       - "com.centurylinklabs.watchtower.monitor-only=true"
@@ -52,15 +52,15 @@ services:
     container_name: nextcloud_db
     restart: always
     environment:
-      PUID: ${DOCKER_UID}
-      PGID: ${DOCKER_GID}
-      TZ: ${DOCKER_TZ}
-      MYSQL_ROOT_PASSWORD: "${DOCKER_SQL_PASSWORD}"
+      PUID: ${TESSERACT_UID}
+      PGID: ${TESSERACT_GID}
+      TZ: ${TESSERACT_TZ}
+      MYSQL_ROOT_PASSWORD: "${TESSERACT_SQL_PASSWORD}"
       MYSQL_USER: nextcloud_user
-      MYSQL_PASSWORD: "${DOCKER_SQL_PASSWORD}"
+      MYSQL_PASSWORD: "${TESSERACT_SQL_PASSWORD}"
       MYSQL_DATABASE: nextcloud_database
     volumes:
-      - ${DOCKER_APPDATA_PATH}/nextcloud_db:/config
+      - ${TESSERACT_APPDATA_PATH}/nextcloud_db:/config
 
     labels:
       - com.centurylinklabs.watchtower.monitor-only=true
@@ -79,10 +79,10 @@ services:
     cap_add:
       - MKNOD
     environment:
-      domain: "docs.${DOCKER_DOMAIN}"
+      domain: "docs.${TESSERACT_DOMAIN}"
       extra_params: "--o:ssl.enable=false --o:ssl.termination=true --o:welcome.enable=false"
-      username: "${DOCKER_DOCKER_USERNAME}"
-      password: "${DOCKER_DOCKER_PASSWORD}"
+      username: "${TESSERACT_DOCKER_USERNAME}"
+      password: "${TESSERACT_DOCKER_PASSWORD}"
       dictionaries: "en_GB fr_FR"
     volumes:
-      - "${DOCKER_APPDATA_PATH}/nextcloud_code:/usr/share/coolwsd/browser/dist/welcome:ro" # Remove nag screen
+      - "${TESSERACT_APPDATA_PATH}/nextcloud_code:/usr/share/coolwsd/browser/dist/welcome:ro" # Remove nag screen

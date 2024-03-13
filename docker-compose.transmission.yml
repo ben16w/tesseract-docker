@@ -14,9 +14,9 @@ services:
       - 8.8.8.8
       - 8.8.4.4
     environment:
-      PUID: "${DOCKER_UID}"
-      PGID: "${DOCKER_GID}"
-      TZ: "${DOCKER_TZ}"
+      PUID: "${TESSERACT_UID}"
+      PGID: "${TESSERACT_GID}"
+      TZ: "${TESSERACT_TZ}"
       OPENVPN_PROVIDER: "CUSTOM"
       OPENVPN_OPTS: "--inactive 3600 --ping 10 --ping-exit 60"
       LOCAL_NETWORK: "192.168.1.0/24"
@@ -33,8 +33,8 @@ services:
       TRANSMISSION_QUEUE_STALLED_ENABLED: "true"
       TRANSMISSION_QUEUE_STALLED_MINUTES: "30"
     volumes:
-      - ${DOCKER_APPDATA_PATH}/transmission_config:/config
-      - ${DOCKER_APPDATA_PATH}/transmission_openvpn_config:/etc/openvpn/custom/
+      - ${TESSERACT_APPDATA_PATH}/transmission_config:/config
+      - ${TESSERACT_APPDATA_PATH}/transmission_openvpn_config:/etc/openvpn/custom/
       - transmission_cache:/data
 
 volumes:

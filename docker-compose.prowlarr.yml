@@ -9,8 +9,8 @@ services:
     ports:
       - 9696:9696
     environment:
-      PUID: "${DOCKER_UID}"
-      PGID: "${DOCKER_GID}"
-      TZ: "${DOCKER_TZ}"
+      PUID: "${TESSERACT_UID}"
+      PGID: "${TESSERACT_GID}"
+      TZ: "${TESSERACT_TZ}"
     volumes:
-      - "${DOCKER_APPDATA_PATH}/prowlarr_config:/config"
+      - "${TESSERACT_APPDATA_PATH}/prowlarr_config:/config"

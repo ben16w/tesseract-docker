@@ -12,8 +12,8 @@ services:
     ports:
       - 8003:8000
     environment:
-      PUID: ${DOCKER_UID}
-      PGID: ${DOCKER_GID}
+      PUID: ${TESSERACT_UID}
+      PGID: ${TESSERACT_GID}
       ALLOWED_HOSTS: "*"
       MAX_MEDIA_SIZE: 1500m
       SAVE_ARCHIVE_DOT_ORG: "False"
@@ -25,5 +25,5 @@ services:
       PUBLIC_ADD_VIEW: "False"
       CHECK_SSL_VALIDITY: "False"
     volumes:
-      - "${DOCKER_APPDATA_PATH}/archivebox_data:/data"
-      - "${DOCKER_DATA_PATH}/Archivebox:/data/archive"
+      - "${TESSERACT_APPDATA_PATH}/archivebox_data:/data"
+      - "${TESSERACT_DATA_PATH}/Archivebox:/data/archive"

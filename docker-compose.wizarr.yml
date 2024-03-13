@@ -6,11 +6,12 @@ services:
     image: ghcr.io/wizarrrr/wizarr
     container_name: wizarr
     restart: always
+    user: "${TESSERACT_UID}:${TESSERACT_GID}"
     ports:
       - 5690:5690
     environment:
-      TZ: "${DOCKER_TZ}"
-      APP_URL: "https://wiz.${DOCKER_DOMAIN}"
+      TZ: "${TESSERACT_TZ}"
+      APP_URL: "https://wiz.${TESSERACT_DOMAIN}"
       DISABLE_BUILTIN_AUTH: "false"
     volumes:
-      - "${DOCKER_APPDATA_PATH}/wizarr_config:/data/database"
+      - "${TESSERACT_APPDATA_PATH}/wizarr_config:/data/database"

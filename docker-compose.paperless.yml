@@ -14,13 +14,13 @@ services:
     ports:
       - 8000:8000
     environment:
-      PAPERLESS_URL: "https://paper.${DOCKER_DOMAIN}"
-      USERMAP_UID: ${DOCKER_UID}
-      USERMAP_GID: ${DOCKER_GID}
-      PAPERLESS_ADMIN_USER: ${DOCKER_DOCKER_USERNAME}
-      PAPERLESS_ADMIN_PASSWORD: ${DOCKER_DOCKER_PASSWORD}
-      PAPERLESS_SECRET_KEY: "${DOCKER_PAPERLESS_SECRET_KEY}"
-      PAPERLESS_TIME_ZONE: "${DOCKER_TZ}"
+      PAPERLESS_URL: "https://paper.${TESSERACT_DOMAIN}"
+      USERMAP_UID: ${TESSERACT_UID}
+      USERMAP_GID: ${TESSERACT_GID}
+      PAPERLESS_ADMIN_USER: ${TESSERACT_DOCKER_USERNAME}
+      PAPERLESS_ADMIN_PASSWORD: ${TESSERACT_DOCKER_PASSWORD}
+      PAPERLESS_SECRET_KEY: "${TESSERACT_PAPERLESS_SECRET_KEY}"
+      PAPERLESS_TIME_ZONE: "${TESSERACT_TZ}"
       PAPERLESS_OCR_LANGUAGE: eng
       PAPERLESS_CONSUMER_POLLING: 3600
       PAPERLESS_REDIS: redis://paperless_broker:6379
@@ -32,11 +32,11 @@ services:
       PAPERLESS_DBHOSTL: paperless_db
       PAPERLESS_DBNAME: paperless_database
       PAPERLESS_DBUSER: paperless_user
-      PAPERLESS_DBPASS: ${DOCKER_SQL_PASSWORD}
+      PAPERLESS_DBPASS: ${TESSERACT_SQL_PASSWORD}
     volumes:
-      - "${DOCKER_APPDATA_PATH}/paperless_data:/usr/src/paperless/data"
-      - "${DOCKER_DATA_PATH}/Paperless:/usr/src/paperless/media"
-      - "${DOCKER_DATA_PATH}/Import:/usr/src/paperless/consume"
+      - "${TESSERACT_APPDATA_PATH}/paperless_data:/usr/src/paperless/data"
+      - "${TESSERACT_DATA_PATH}/Paperless:/usr/src/paperless/media"
+      - "${TESSERACT_DATA_PATH}/Import:/usr/src/paperless/consume"
 
   paperless_db:
     image: docker.io/library/postgres:13
@@ -45,16 +45,16 @@ services:
     environment:
       POSTGRES_DB: paperless_database
       POSTGRES_USER: paperless_user
-      POSTGRES_PASSWORD: ${DOCKER_SQL_PASSWORD}
+      POSTGRES_PASSWORD: ${TESSERACT_SQL_PASSWORD}
     volumes:
-      - "${DOCKER_APPDATA_PATH}/paperless_db:/var/lib/postgresql/data"
+      - "${TESSERACT_APPDATA_PATH}/paperless_db:/var/lib/postgresql/data"
 
   paperless_broker:
     image: docker.io/library/redis:7
     container_name: paperless_broker
     restart: always
     volumes:
-      - "${DOCKER_APPDATA_PATH}/paperless_redis:/data"
+      - "${TESSERACT_APPDATA_PATH}/paperless_redis:/data"
 
   paperless_gotenberg:
     image: docker.io/gotenberg/gotenberg:7.4
