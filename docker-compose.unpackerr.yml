@@ -3,7 +3,7 @@ version: "2.1"
 
 services:
   unpackerr:
-    image: cr.hotio.dev/hotio/unpackerr
+    image: ghcr.io/hotio/unpackerr
     container_name: unpackerr
     restart: always
     environment:
