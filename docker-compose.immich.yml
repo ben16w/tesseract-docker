@@ -12,7 +12,7 @@ services:
     environment:
       DB_HOSTNAME: immich_db
       DB_USERNAME: immich_user
-      DB_PASSWORD: ${TESSERACT_SQL_PASSWORD}
+      DB_PASSWORD: "${TESSERACT_SQL_PASSWORD}"
       DB_DATABASE_NAME: immich_database
       REDIS_HOSTNAME: immich_redis
       UPLOAD_LOCATION: ./upload
@@ -34,7 +34,7 @@ services:
     environment:
       DB_HOSTNAME: immich_db
       DB_USERNAME: immich_user
-      DB_PASSWORD: ${TESSERACT_SQL_PASSWORD}
+      DB_PASSWORD: "${TESSERACT_SQL_PASSWORD}"
       DB_DATABASE_NAME: immich_database
       REDIS_HOSTNAME: immich_redis
       UPLOAD_LOCATION: ./upload
@@ -63,7 +63,7 @@ services:
     container_name: immich_db
     restart: always
     environment:
-      POSTGRES_PASSWORD: ${TESSERACT_SQL_PASSWORD}
+      POSTGRES_PASSWORD: "${TESSERACT_SQL_PASSWORD}"
       POSTGRES_USER: immich_user
       POSTGRES_DB: immich_database
     volumes:
