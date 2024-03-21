@@ -49,8 +49,8 @@ services:
 
     volumes:
       - "${TESSERACT_APPDATA_PATH}/steam_home:/home/default"
-      - "${TESSERACT_DATA_PATH}/Games:/mnt/games"
-      - steam_games:/mnt/steam_games
+      - "${TESSERACT_DATA_PATH}/Games:/mnt/games_remote"
+      - steam_games:/mnt/games_local
       - steam_flatpak:/var/lib/flatpak
 
 volumes:
