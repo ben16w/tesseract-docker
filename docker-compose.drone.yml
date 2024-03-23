@@ -21,3 +21,18 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - "${TESSERACT_APPDATA_PATH}/drone_data:/var/lib/drone"
+
+  drone-runner-docker:
+    image: drone/drone-runner-docker:latest
+    container_name: drone-runner-docker
+    restart: always
+    ports:
+      - 3005:3000
+    environment:
+      DRONE_RPC_HOST: "drone.${TESSERACT_DOMAIN}"
+      DRONE_RPC_PROTO: http
+      DRONE_RPC_SECRET: "${TESSERACT_DRONE_SECRET}"
+      DRONE_RUNNER_CAPACITY: 2
+      DRONE_RUNNER_NAME: drone-runner-docker
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
