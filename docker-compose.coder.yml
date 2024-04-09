@@ -12,7 +12,7 @@ services:
       - "${TESSERACT_DOCKER_GROUP}" # docker group on host
     environment:
       CODER_HTTP_ADDRESS: "0.0.0.0:7080"
-      CODER_ACCESS_URL: "http://code.${TESSERACT_DOMAIN}"
+      CODER_ACCESS_URL: "https://code.${TESSERACT_DOMAIN}"
       CODER_DATA: "$HOME/.config/coderv2-docker"
     volumes:
       - "${TESSERACT_APPDATA_PATH}/coder_config:/home/coder/.config"

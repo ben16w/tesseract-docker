@@ -18,7 +18,7 @@ services:
 
       GITEA__server__DOMAIN: "git.${TESSERACT_DOMAIN}"
       GITEA__server__SSH_DOMAIN: "${TESSERACT_DOMAIN}"
-      GITEA__server__ROOT_URL: "http://git.${TESSERACT_DOMAIN}"
+      GITEA__server__ROOT_URL: "https://git.${TESSERACT_DOMAIN}"
       GITEA__server__HTTP_PORT: 3000
       GITEA__server__SSH_LISTEN_PORT: 2222 # Port for the built-in SSH server.
       GITEA__server__SSH_PORT: 2222 # SSH port displayed in clone URL.

@@ -19,7 +19,7 @@ services:
           sleep 5;
         done; (exit $$s)"
     environment:
-      BASE_URL: "http://boards.${TESSERACT_DOMAIN}"
+      BASE_URL: "https://boards.${TESSERACT_DOMAIN}"
       TRUST_PROXY: 0
       DATABASE_URL: postgresql://postgres@planka_db/planka
       SECRET_KEY: "${TESSERACT_PLANKA_SECRET_KEY}"
