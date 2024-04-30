@@ -1,0 +1,10 @@
+---
+version: "2.1"
+
+services:
+  dozzle:
+    image: git.tepig.ben16w.site/tesseract/homepage:latest
+    container_name: homepage
+    restart: always
+    ports:
+      - 6666:80
