@@ -1,7 +1,5 @@
 ---
 
-version: "2.1"
-
 services:
   nextcloud:
     image: nextcloud:25

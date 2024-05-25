@@ -1,5 +1,4 @@
 ---
-version: "2.1"
 
 # docker-compose -f docker-compose.archivebox.yml run archivebox init --setup
 

@@ -1,7 +1,5 @@
 ---
 
-version: "2.1"
-
 services:
   code-server:
     # should use codercom/code-server:latest

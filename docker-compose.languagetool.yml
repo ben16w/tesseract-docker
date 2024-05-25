@@ -1,5 +1,4 @@
 ---
-version: "2.1"
 
 # docker exec -u 0 languagetool bash -c "if [ ! -d /ngrams/en ]; then cd /ngrams; \
 # wget -O /tmp/ngrams.zip 'https://languagetool.org/download/ngram-data/ngrams-en-20150817.zip'; \

@@ -1,5 +1,4 @@
 ---
-version: "2.1"
 
 # Plugin stack
 # Community,Tdarr_Plugin_lmg1_Reorder_Streams,,Community,Tdarr_Plugin_MC93_Migz1FFMPEG_CPU,,Community,Tdarr_Plugin_MC93_Migz5ConvertAudio,,Community,Tdarr_Plugin_MC93_Migz1Remux,,Community,Tdarr_Plugin_MC93_Migz3CleanAudio,,Community,Tdarr_Plugin_MC93_Migz4CleanSubs,,Community,Tdarr_Plugin_MC93_Migz2CleanTitle,,Community,Tdarr_Plugin_MC93_MigzImageRemoval,,
