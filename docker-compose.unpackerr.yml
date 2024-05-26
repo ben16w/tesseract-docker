@@ -13,4 +13,3 @@ services:
     volumes:
       - "${TESSERACT_APPDATA_PATH}/unpackerr_config:/config"
       - "${TESSERACT_LOCAL_PATH}/transmission_downloads:/transmission_downloads"
-      

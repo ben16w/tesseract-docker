@@ -35,4 +35,3 @@ services:
       - ${TESSERACT_APPDATA_PATH}/transmission_config:/config
       - ${TESSERACT_APPDATA_PATH}/transmission_openvpn_config:/etc/openvpn/custom/
       - "${TESSERACT_LOCAL_PATH}/transmission_downloads:/data"
-
