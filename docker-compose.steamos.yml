@@ -33,9 +33,5 @@ services:
 
       - "${TESSERACT_APPDATA_PATH}/steamos_config:/config"
       - "${TESSERACT_DATA_PATH}/Games:/mnt/games"
-      - steam_games:/mnt/steam_games
-      - steam_flatpak:/var/lib/flatpak
-
-volumes:
-  steam_flatpak:
-  steam_games:
+      - "${TESSERACT_LOCAL_PATH}/steam_games:/mnt/steam_games"
+      - "${TESSERACT_LOCAL_PATH}/steam_flatpak:/var/lib/flatpak"
