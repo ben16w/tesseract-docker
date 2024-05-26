@@ -16,7 +16,5 @@ services:
     volumes:
       - "${TESSERACT_APPDATA_PATH}/radarr_config:/config"
       - "${TESSERACT_DATA_PATH}/Movies:/movies"
-      - transmission_cache:/downloads
+      - "${TESSERACT_LOCAL_PATH}/transmission_downloads:/downloads"
 
-volumes:
-  transmission_cache:

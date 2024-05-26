@@ -16,7 +16,4 @@ services:
     volumes:
       - "${TESSERACT_APPDATA_PATH}/sonarr_config:/config"
       - "${TESSERACT_DATA_PATH}/Tvshows:/tv"
-      - transmission_cache:/transmission_cache
-
-volumes:
-  transmission_cache:
+      - "${TESSERACT_LOCAL_PATH}/transmission_downloads:/transmission_downloads"
