@@ -1,0 +1,32 @@
+---
+
+services:
+  text-generation-webui:
+    image: atinoda/text-generation-webui:default-rocm
+    container_name: text-generation-webui
+    restart: always
+    ports:
+      - 7860:7860
+    stdin_open: true
+    group_add:
+      - video
+    tty: true
+    ipc: host
+    devices:
+      - /dev/kfd
+      - /dev/dri
+    cap_add:
+      - SYS_PTRACE
+    security_opt:
+      - seccomp=unconfined
+    environment:
+      - EXTRA_LAUNCH_ARGS="--listen --verbose"
+    volumes:
+      - ./config/cache:/root/.cache  # WARNING: Libraries may save large files here!
+      - ./config/characters:/app/characters
+      - ./config/instruction-templates:/app/instruction-templates
+      - ./config/loras:/app/loras
+      - ./config/models:/app/models  # WARNING - very large files!
+      - ./config/presets:/app/presets
+      - ./config/prompts:/app/prompts
+      - ./config/training:/app/training
