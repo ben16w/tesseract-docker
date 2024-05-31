@@ -1,0 +1,17 @@
+---
+
+services:
+  mealie:
+    image: ghcr.io/mealie-recipes/mealie:v1.7.0
+    container_name: mealie
+    restart: always
+    ports:
+      - 9925:9000
+    environment:
+      PUID: "${TESSERACT_UID}"
+      PGID: "${TESSERACT_GID}"
+      TZ: "${TESSERACT_TZ}"
+      ALLOW_SIGNUP: false
+      BASE_URL: "https://meal.${TESSERACT_DOMAIN}"
+    volumes:
+      - "${TESSERACT_APPDATA_PATH}/mealie_data:/app/data/"
