@@ -22,11 +22,11 @@ services:
     environment:
       - EXTRA_LAUNCH_ARGS="--listen --verbose"
     volumes:
-      - ./config/cache:/root/.cache  # WARNING: Libraries may save large files here!
+      - ./config/cache:/root/.cache
       - ./config/characters:/app/characters
       - ./config/instruction-templates:/app/instruction-templates
       - ./config/loras:/app/loras
-      - ./config/models:/app/models  # WARNING - very large files!
+      - ./config/models:/app/models
       - ./config/presets:/app/presets
       - ./config/prompts:/app/prompts
       - ./config/training:/app/training
