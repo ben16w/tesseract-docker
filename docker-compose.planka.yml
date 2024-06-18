@@ -9,14 +9,6 @@ services:
       - 3002:1337
     depends_on:
       - planka_db
-    command: >
-      bash -c
-        "for i in `seq 1 30`; do
-          ./start.sh &&
-          s=$$? && break || s=$$?;
-          echo \"Tried $$i times. Waiting 5 seconds...\";
-          sleep 5;
-        done; (exit $$s)"
     environment:
       BASE_URL: "https://boards.${TESSERACT_DOMAIN}"
       TRUST_PROXY: 0
