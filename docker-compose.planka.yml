@@ -14,6 +14,7 @@ services:
       TRUST_PROXY: 0
       DATABASE_URL: postgresql://postgres@planka_db/planka
       SECRET_KEY: "${TESSERACT_PLANKA_SECRET_KEY}"
+      WEBHOOKS: "[]"
     volumes:
       - "${TESSERACT_APPDATA_PATH}/planka_avatars:/app/public/user-avatars"
       - "${TESSERACT_APPDATA_PATH}/planka_images:/app/public/project-background-images"
