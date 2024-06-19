@@ -1,12 +1,7 @@
 ---
-
 kind: pipeline
-type: exec
-name: test
-
-platform:
-  os: linux
-  arch: amd64
+type: docker
+name: default
 
 trigger:
   event:
@@ -15,5 +10,10 @@ trigger:
 
 steps:
   - name: lint
+    image: docker:dind
     commands:
+      - apk update
+      - apk add bash make python3 py3-pip
+      - make install-pip
+      - export PATH="$$HOME/.local/bin:$$PATH"
       - make lint
