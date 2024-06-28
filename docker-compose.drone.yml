@@ -31,7 +31,7 @@ services:
       DRONE_RPC_HOST: "drone.${TESSERACT_DOMAIN}"
       DRONE_RPC_PROTO: https
       DRONE_RPC_SECRET: "${TESSERACT_DRONE_SECRET}"
-      DRONE_RUNNER_CAPACITY: 2
+      DRONE_RUNNER_CAPACITY: 4
       DRONE_RUNNER_NAME: drone-runner-docker
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
