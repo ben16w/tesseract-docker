@@ -3,7 +3,7 @@
 services:
   text-generation-webui:
     image: atinoda/text-generation-webui:default-rocm
-    container_name: text-generation-webui
+    container_name: text-generation-webui-rocm
     restart: always
     ports:
       - 7860:7860
