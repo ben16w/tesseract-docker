@@ -5,14 +5,18 @@ services:
     image: josh5/steam-headless:latest
     container_name: steam
     restart: always
+
     network_mode: host
-    runtime: runc
+    hostname: hypercube
+    extra_hosts:
+      - "hypercube:127.0.0.1"
+
     shm_size: 2G
-    devices:
-      - /dev/fuse
-      - /dev/uinput
-      - /dev/dri/card1
-      - /dev/dri/renderD129
+    ipc: host
+    ulimits:
+      nofile:
+        soft: 1024
+        hard: 524288
     cap_add:
       - NET_ADMIN
       - SYS_ADMIN
@@ -20,25 +24,25 @@ services:
     security_opt:
       - seccomp:unconfined
       - apparmor:unconfined
+
+    devices:
+      - /dev/fuse
+      - /dev/uinput
+      - /dev/dri/card1
+      - /dev/dri/renderD129
     device_cgroup_rules:
       - 'c 13:* rmw'
-    ulimits:
-      nofile:
-        soft: 1024
-        hard: 524288
-    hostname: hypercube
-    extra_hosts:
-      - "hypercube:127.0.0.1"
+
     environment:
       PUID: ${TESSERACT_UID}
       PGID: ${TESSERACT_GID}
       TZ: ${TESSERACT_TZ}
       NAME: hypercube
+      MODE: primary
       USER_LOCALES: 'en_US.UTF-8 UTF-8'
       DISPLAY: ':55'
       UMASK: '000'
       USER_PASSWORD: "${TESSERACT_DOCKER_PASWORD}"
-      MODE: 'primary'
       WEB_UI_MODE: 'vnc'
       PORT_NOVNC_WEB: '8990'
       ENABLE_VNC_AUDIO: 'false'
