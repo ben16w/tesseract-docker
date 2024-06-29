@@ -11,7 +11,8 @@ services:
     devices:
       - /dev/fuse
       - /dev/uinput
-      - /dev/dri
+      - /dev/dri/card1
+      - /dev/dri/renderD129
     cap_add:
       - NET_ADMIN
       - SYS_ADMIN
