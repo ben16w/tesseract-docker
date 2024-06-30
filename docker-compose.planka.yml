@@ -9,19 +9,12 @@ services:
       - 3002:1337
     depends_on:
       - planka_db
-    command: >
-      bash -c
-        "for i in `seq 1 30`; do
-          ./start.sh &&
-          s=$$? && break || s=$$?;
-          echo \"Tried $$i times. Waiting 5 seconds...\";
-          sleep 5;
-        done; (exit $$s)"
     environment:
       BASE_URL: "https://boards.${TESSERACT_DOMAIN}"
       TRUST_PROXY: 0
       DATABASE_URL: postgresql://postgres@planka_db/planka
       SECRET_KEY: "${TESSERACT_PLANKA_SECRET_KEY}"
+      WEBHOOKS: "[]"
     volumes:
       - "${TESSERACT_APPDATA_PATH}/planka_avatars:/app/public/user-avatars"
       - "${TESSERACT_APPDATA_PATH}/planka_images:/app/public/project-background-images"

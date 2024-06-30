@@ -5,13 +5,18 @@ services:
     image: josh5/steam-headless:latest
     container_name: steam
     restart: always
+
     network_mode: host
-    runtime: runc
+    hostname: hypercube
+    extra_hosts:
+      - "hypercube:127.0.0.1"
+
     shm_size: 2G
-    devices:
-      - /dev/fuse
-      - /dev/uinput
-      - /dev/dri
+    ipc: host
+    ulimits:
+      nofile:
+        soft: 1024
+        hard: 524288
     cap_add:
       - NET_ADMIN
       - SYS_ADMIN
@@ -19,25 +24,24 @@ services:
     security_opt:
       - seccomp:unconfined
       - apparmor:unconfined
+
+    devices:
+      - /dev/fuse
+      - /dev/uinput
+      - /dev/dri
     device_cgroup_rules:
       - 'c 13:* rmw'
-    ulimits:
-      nofile:
-        soft: 1024
-        hard: 524288
-    hostname: hypercube
-    extra_hosts:
-      - "hypercube:127.0.0.1"
+
     environment:
       PUID: ${TESSERACT_UID}
       PGID: ${TESSERACT_GID}
       TZ: ${TESSERACT_TZ}
       NAME: hypercube
+      MODE: primary
       USER_LOCALES: 'en_US.UTF-8 UTF-8'
       DISPLAY: ':55'
       UMASK: '000'
       USER_PASSWORD: "${TESSERACT_DOCKER_PASWORD}"
-      MODE: 'primary'
       WEB_UI_MODE: 'vnc'
       PORT_NOVNC_WEB: '8990'
       ENABLE_VNC_AUDIO: 'false'
@@ -49,9 +53,5 @@ services:
     volumes:
       - "${TESSERACT_APPDATA_PATH}/steam_home:/home/default"
       - "${TESSERACT_DATA_PATH}/Games:/mnt/games_remote"
-      - steam_games:/mnt/games_local
-      - steam_flatpak:/var/lib/flatpak
-
-volumes:
-  steam_flatpak:
-  steam_games:
+      - "${TESSERACT_LOCAL_PATH}/steam_games:/mnt/games_local"
+      - "${TESSERACT_LOCAL_PATH}/steam_flatpak:/var/lib/flatpak"

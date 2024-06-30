@@ -12,7 +12,4 @@ services:
       UMASK: 002
     volumes:
       - "${TESSERACT_APPDATA_PATH}/unpackerr_config:/config"
-      - transmission_cache:/transmission_cache
-
-volumes:
-  transmission_cache:
+      - "${TESSERACT_LOCAL_PATH}/transmission_downloads:/transmission_downloads"

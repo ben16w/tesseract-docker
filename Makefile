@@ -1,3 +1,8 @@
+# Install Python packages using pip.
+.PHONY: install-pip
+install-pip:
+	@pip install --user --break-system-packages --upgrade -r requirements.txt
+
 # Lint all roles in the repository using yamllint.
 .PHONY: lint
 lint:

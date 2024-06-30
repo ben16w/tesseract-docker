@@ -5,31 +5,10 @@ services:
     image: ghcr.io/immich-app/immich-server:release
     container_name: immich_server
     restart: always
-    command: [ "start.sh", "immich" ]
-    ports:
-      - 2283:3001
-    environment:
-      DB_HOSTNAME: immich_db
-      DB_USERNAME: immich_user
-      DB_PASSWORD: "${TESSERACT_SQL_PASSWORD}"
-      DB_DATABASE_NAME: immich_database
-      REDIS_HOSTNAME: immich_redis
-      UPLOAD_LOCATION: ./upload
-      IMMICH_MACHINE_LEARNING_URL: "http://immich_ml:3003"
-    depends_on:
-      - immich_redis
-      - immich_db
-    volumes:
-      - /etc/localtime:/etc/localtime:ro
-      - ${TESSERACT_DATA_PATH}/Immich:/usr/src/app/upload
-
-  immich_microservices:
-    image: ghcr.io/immich-app/immich-server:release
-    container_name: immich_microservices
-    restart: always
-    command: [ "start.sh", "microservices" ]
     devices:
       - /dev/dri:/dev/dri
+    ports:
+      - 2283:3001
     environment:
       DB_HOSTNAME: immich_db
       DB_USERNAME: immich_user

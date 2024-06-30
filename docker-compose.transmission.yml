@@ -34,7 +34,4 @@ services:
     volumes:
       - ${TESSERACT_APPDATA_PATH}/transmission_config:/config
       - ${TESSERACT_APPDATA_PATH}/transmission_openvpn_config:/etc/openvpn/custom/
-      - transmission_cache:/data
-
-volumes:
-  transmission_cache:
+      - "${TESSERACT_LOCAL_PATH}/transmission_downloads:/data"
