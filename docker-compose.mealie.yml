@@ -16,5 +16,7 @@ services:
       OPENAI_BASE_URL: "https://ai.${TESSERACT_DOMAIN}/v1"
       OPENAI_API_KEY: "notrequired"
       OPENAI_MODEL: "phi3:14b"
+      OPENAI_WORKERS: 1
+      OPENAI_REQUEST_TIMEOUT: 120
     volumes:
       - "${TESSERACT_APPDATA_PATH}/mealie_data:/app/data/"
