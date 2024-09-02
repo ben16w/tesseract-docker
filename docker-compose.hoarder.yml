@@ -2,7 +2,7 @@
 
 services:
   hoarder:
-    image: ghcr.io/hoarder-app/hoarder-web:release
+    image: ghcr.io/hoarder-app/hoarder:${HOARDER_VERSION:-release}
     container_name: hoarder
     restart: always
     ports:
@@ -19,29 +19,6 @@ services:
       REDIS_HOST: hoarder-redis
       MEILI_ADDR: http://hoarder-meilisearch:7700
       MEILI_MASTER_KEY: "${TESSERACT_HOARDER_SECRET}"
-    volumes:
-      - "${TESSERACT_APPDATA_PATH}/hoarder-data:/data"
-
-  hoarder-workers:
-    image: ghcr.io/hoarder-app/hoarder-workers:release
-    container_name: hoarder-workers
-    restart: always
-    depends_on:
-      hoarder:
-        condition: service_started
-    environment:
-      HOARDER_VERSION: release
-      DATA_DIR: /data
-      CRAWLER_FULL_PAGE_SCREENSHOT: "true"
-      CRAWLER_FULL_PAGE_ARCHIVE: "true"
-      MAX_ASSET_SIZE_MB: 25
-      CRAWLER_NUM_WORKERS: 2
-      NEXTAUTH_SECRET: "${TESSERACT_HOARDER_SECRET}"
-      NEXTAUTH_URL: http://charizard.ben16w.site:3000
-      REDIS_HOST: hoarder-redis
-      MEILI_ADDR: http://hoarder-meilisearch:7700
-      MEILI_MASTER_KEY: "${TESSERACT_HOARDER_SECRET}"
-
       BROWSER_WEB_URL: http://hoarder-chrome:9222
       OLLAMA_BASE_URL: "https://ai.${TESSERACT_DOMAIN}"
       INFERENCE_TEXT_MODEL: "mistral"
@@ -58,13 +35,6 @@ services:
       MEILI_MASTER_KEY: "${TESSERACT_HOARDER_SECRET}"
     volumes:
       - "${TESSERACT_APPDATA_PATH}/hoarder-meilisearch:/meili_data"
-
-  hoarder-redis:
-    image: redis:7.2-alpine
-    container_name: hoarder-redis
-    restart: always
-    volumes:
-      - "${TESSERACT_APPDATA_PATH}/hoarder-redis:/data"
 
   hoarder-chrome:
     image: gcr.io/zenika-hub/alpine-chrome:123
