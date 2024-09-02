@@ -41,7 +41,7 @@ services:
       USER_LOCALES: 'en_US.UTF-8 UTF-8'
       DISPLAY: ':55'
       UMASK: '000'
-      USER_PASSWORD: "${TESSERACT_DOCKER_PASWORD}"
+      USER_PASSWORD: "${TESSERACT_DOCKER_PASSWORD}"
       WEB_UI_MODE: 'vnc'
       PORT_NOVNC_WEB: '8990'
       ENABLE_VNC_AUDIO: 'false'
