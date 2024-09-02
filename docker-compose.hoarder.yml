@@ -21,7 +21,7 @@ services:
       MEILI_MASTER_KEY: "${TESSERACT_HOARDER_SECRET}"
       BROWSER_WEB_URL: http://hoarder-chrome:9222
       OLLAMA_BASE_URL: "https://ai.${TESSERACT_DOMAIN}"
-      INFERENCE_TEXT_MODEL: "mistral"
+      INFERENCE_TEXT_MODEL: "llama3.1"
       INFERENCE_IMAGE_MODEL: "llava"
     volumes:
       - "${TESSERACT_APPDATA_PATH}/hoarder-data:/data"
