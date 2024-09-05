@@ -1,0 +1,47 @@
+---
+
+services:
+  farfalle-frontend:
+    image: git.tepig.ben16w.site/ben/farfalle-frontend:latest
+    container_name: farfalle-frontend
+    restart: always
+    ports:
+      - "3004:3000"
+    environment:
+      NEXT_PUBLIC_API_URL: http://farfalle-backend:8000
+      NEXT_PUBLIC_LOCAL_MODE_ENABLED: "true"
+      NEXT_PUBLIC_PRO_MODE_ENABLED: "true"
+    depends_on:
+      - farfalle-backend
+
+  farfalle-backend:
+    image: git.tepig.ben16w.site/ben/farfalle-backend:latest
+    container_name: farfalle-backend
+    restart: always
+    environment:
+      SEARCH_PROVIDER: searxng
+      SEARXNG_BASE_URL: https://search.ben16w.site
+      OLLAMA_API_BASE: https://ai.ben16w.site
+      CUSTOM_MODEL: "mistral"
+      DATABASE_URL: "postgresql+psycopg2://farfalle_user:${TESSERACT_SQL_PASSWORD}@farfalle_db:5432/farfalle_db"
+      DB_ENABLED: "True"
+      ENABLE_LOCAL_MODELS: "True"
+    entrypoint: >
+      /bin/sh -c "
+        cd /workspace/src/backend &&
+        alembic upgrade head &&
+        uvicorn main:app --host 0.0.0.0 --port 8000
+      "
+    depends_on:
+      - farfalle_db
+
+  farfalle_db:
+    image: postgres:15.2-alpine
+    container_name: farfalle_db
+    restart: always
+    environment:
+      POSTGRES_USER: farfalle_user
+      POSTGRES_PASSWORD: "${TESSERACT_SQL_PASSWORD}"
+      POSTGRES_DB: farfalle_db
+    volumes:
+      - "${TESSERACT_APPDATA_PATH}/farfalle_db:/var/lib/postgresql/data"
