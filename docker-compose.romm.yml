@@ -2,7 +2,7 @@
 
 services:
   romm:
-    image: zurdi15/romm:latest
+    image: rommapp/romm:latest
     container_name: romm
     restart: always
     ports:
@@ -14,14 +14,18 @@ services:
       DB_NAME: romm_database
       DB_USER: romm_user
       DB_PASSWD: "${TESSERACT_SQL_PASSWORD}"
-      IGDB_CLIENT_ID: "${TESSERACT_IGDB_CLIENT_ID}"
-      IGDB_CLIENT_SECRET: "${TESSERACT_IGDB_CLIENT_SECRET}"
       ROMM_AUTH_SECRET_KEY: "${TESSERACT_ROMM_AUTH_SECRET_KEY}"
-      ROMM_AUTH_USERNAME: "${TESSERACT_DOCKER_USERNAME}"
-      ROMM_AUTH_PASSWORD: "${TESSERACT_DOCKER_PASSWORD}"
+      # IGDB_CLIENT_ID: "${TESSERACT_IGDB_CLIENT_ID}"
+      # IGDB_CLIENT_SECRET: "${TESSERACT_IGDB_CLIENT_SECRET}"
+      # MOBYGAMES_API_KEY: "${TESSERACT_MOBYGAMES_API_KEY}"
+      # STEAMGRIDDB_API_KEY: "${TESSERACT_STEAMGRIDDB_API_KEY}"
+
     volumes:
-      - "${TESSERACT_APPDATA_PATH}/romm_data:/romm"
       - "${TESSERACT_DATA_PATH}/Games/ROMs:/romm/library"
+      - "${TESSERACT_APPDATA_PATH}/romm_resources:/romm/resources"
+      - "${TESSERACT_APPDATA_PATH}/romm_config:/romm/config"
+      - "${TESSERACT_APPDATA_PATH}/romm_assets:/romm/assets"
+      - romm_cache:/redis-data
 
   romm_db:
     image: mariadb:latest
@@ -34,3 +38,6 @@ services:
       MYSQL_PASSWORD: "${TESSERACT_SQL_PASSWORD}"
     volumes:
       - "${TESSERACT_APPDATA_PATH}/romm_db:/var/lib/mysql"
+
+volumes:
+  romm_cache:
