@@ -1,0 +1,12 @@
+---
+
+services:
+  kotaemon:
+    image: ghcr.io/cinnamon/kotaemon:latest
+    container_name: kotaemon
+    restart: always
+    ports:
+      - 7860:7860
+    environment:
+      - GRADIO_SERVER_NAME=0.0.0.0
+      - GRADIO_SERVER_PORT=7860
