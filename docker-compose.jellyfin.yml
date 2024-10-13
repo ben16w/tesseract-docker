@@ -8,7 +8,7 @@ services:
     ports:
       - 8096:8096 # UI
       - 7359:7359/udp # optional
-      - 1900:1900/udp # optional
+      # - 1900:1900/udp # optional DLNA
     environment:
       PUID: "${TESSERACT_UID}"
       PGID: "${TESSERACT_GID}"
