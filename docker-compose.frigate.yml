@@ -1,0 +1,28 @@
+---
+
+services:
+  frigate:
+    image: ghcr.io/blakeblackshear/frigate:stable
+    container_name: frigate
+    restart: always
+    ports:
+      - 8971:8971
+      #- 8554:8554 # RTSP feeds
+      #- 8555:8555/tcp # WebRTC over tcp
+      #- 8555:8555/udp # WebRTC over udp
+    privileged: true # this may not be necessary for all setups
+    shm_size: "64mb"
+    environment:
+      FRIGATE_RTSP_PASSWORD: "${TESSERACT_DOCKER_PASSWORD}"
+    devices:
+      #- /dev/bus/usb:/dev/bus/usb # USB Coral
+      #- /dev/apex_0:/dev/apex_0 # PCIe Coral
+      - /dev/dri/renderD128:/dev/dri/renderD128
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - "${TESSERACT_APPDATA_PATH}/frigate_config:/config"
+      #- "${TESSERACT_DATA_PATH}/Cameras:/media/frigate"
+      - frigate_cache:/tmp/cache
+
+volumes:
+  frigate_cache:
