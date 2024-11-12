@@ -10,12 +10,13 @@ services:
     environment:
       OLLAMA_BASE_URL: "https://ai.${TESSERACT_DOMAIN}"
       WEBUI_URL: "https://chat.${TESSERACT_DOMAIN}"
-      DEFAULT_MODELS: "llama3.1:latest"
+      DEFAULT_MODELS: "llama3.1"
       ENABLE_MODEL_FILTER: True
-      MODEL_FILTER_LIST: "llama3.1:latest;codestral:latest;mistral:latest;phi3:14b"
+      MODEL_FILTER_LIST: "llama3.1;mistral-nemo;gemma2:27b;codestral;mathstral"
       ENABLE_COMMUNITY_SHARING: False
       ENABLE_MESSAGE_RATING: False
       ENABLE_RAG_WEB_SEARCH: True
+      RAG_WEB_SEARCH_RESULT_COUNT: 6
       ENABLE_SEARCH_QUERY: True
       RAG_WEB_SEARCH_ENGINE: searxng
       SEARXNG_QUERY_URL: "https://search.${TESSERACT_DOMAIN}/search?q=<query>"
