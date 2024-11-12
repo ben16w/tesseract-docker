@@ -10,9 +10,9 @@ services:
     environment:
       OLLAMA_BASE_URL: "https://ai.${TESSERACT_DOMAIN}"
       WEBUI_URL: "https://chat.${TESSERACT_DOMAIN}"
-      DEFAULT_MODELS: "llama3.1"
+      DEFAULT_MODELS: "llama3.1:latest"
       ENABLE_MODEL_FILTER: True
-      MODEL_FILTER_LIST: "llama3.1;mistral-nemo;gemma2:27b;codestral;mathstral"
+      MODEL_FILTER_LIST: "llama3.1:latest;mistral-nemo:latest;gemma2:27b;codestral:latest;mathstral:latest"
       ENABLE_COMMUNITY_SHARING: False
       ENABLE_MESSAGE_RATING: False
       ENABLE_RAG_WEB_SEARCH: True
