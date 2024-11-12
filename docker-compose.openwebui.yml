@@ -1,0 +1,25 @@
+---
+
+services:
+  openwebui:
+    image: ghcr.io/open-webui/open-webui:main
+    container_name: openwebui
+    restart: always
+    ports:
+      - "3004:8080"
+    environment:
+      OLLAMA_BASE_URL: "https://ai.${TESSERACT_DOMAIN}"
+      WEBUI_URL: "https://chat.${TESSERACT_DOMAIN}"
+      ENABLE_SIGNUP: False
+      DEFAULT_MODELS: "llama3.1:latest"
+      ENABLE_MODEL_FILTER: True
+      MODEL_FILTER_LIST: "llama3.1:latest;codestral:latest;mistral:latest;phi3:14b"
+      ENABLE_COMMUNITY_SHARING: False
+      ENABLE_MESSAGE_RATING: False
+      ENABLE_RAG_WEB_SEARCH: True
+      ENABLE_SEARCH_QUERY: True
+      RAG_WEB_SEARCH_ENGINE: searxng
+      SEARXNG_QUERY_URL: "https://search.${TESSERACT_DOMAIN}/search?q=<query>"
+
+    volumes:
+      - "${TESSERACT_APPDATA_PATH}/openwebui-data:/app/backend/data"
