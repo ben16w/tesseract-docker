@@ -15,13 +15,13 @@ services:
       DB_USER: romm_user
       DB_PASSWD: "${TESSERACT_SQL_PASSWORD}"
       ROMM_AUTH_SECRET_KEY: "${TESSERACT_ROMM_AUTH_SECRET_KEY}"
-      # IGDB_CLIENT_ID: "${TESSERACT_IGDB_CLIENT_ID}"
-      # IGDB_CLIENT_SECRET: "${TESSERACT_IGDB_CLIENT_SECRET}"
+      IGDB_CLIENT_ID: "${TESSERACT_IGDB_CLIENT_ID}"
+      IGDB_CLIENT_SECRET: "${TESSERACT_IGDB_CLIENT_SECRET}"
       # MOBYGAMES_API_KEY: "${TESSERACT_MOBYGAMES_API_KEY}"
       # STEAMGRIDDB_API_KEY: "${TESSERACT_STEAMGRIDDB_API_KEY}"
 
     volumes:
-      - "${TESSERACT_DATA_PATH}/Games/ROMs:/romm/library"
+      - "${TESSERACT_DATA_PATH}/Games/Romm:/romm/library"
       - "${TESSERACT_APPDATA_PATH}/romm_resources:/romm/resources"
       - "${TESSERACT_APPDATA_PATH}/romm_config:/romm/config"
       - "${TESSERACT_APPDATA_PATH}/romm_assets:/romm/assets"
