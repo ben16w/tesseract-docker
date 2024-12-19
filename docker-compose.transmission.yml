@@ -9,6 +9,8 @@ services:
       - NET_ADMIN
     ports:
       - "9091:9091"
+    devices:
+      - /dev/net/tun
     dns:
       - 8.8.8.8
       - 8.8.4.4
