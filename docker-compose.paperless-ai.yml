@@ -1,0 +1,11 @@
+---
+
+services:
+  paperless-ai:
+    image: clusterzx/paperless-ai
+    container_name: paperless-ai
+    restart: always
+    ports:
+      - "3006:3000"
+    volumes:
+      - "${TESSERACT_APPDATA_PATH}/paperless-ai_data:/app/data"
