@@ -62,6 +62,7 @@ help:
 
 # Define directive to activate the virtual environment.
 define activate-venv
+	set -e ;\
 	if [ -d .venv ]; then \
 		source .venv/bin/activate ;\
 	else \
@@ -72,6 +73,7 @@ endef
 
 # Define directive to run a molecule test for a role directory.
 define molecule-test
+	set -e ;\
 	if [ -f $${moleculedir}/default/molecule.yml ]; then \
 		pushd $$(dirname $${moleculedir}) > /dev/null ;\
 		if [ "$(CMD)" == "test" ]; then \
@@ -97,6 +99,7 @@ endef
 
 # Define directive to run a molecule test for a role directory when multiple tests are required.
 define molecule-test-multi
+	set -e ;\
 	if [ -f $${moleculedir}/default/molecule.yml ]; then \
 		pushd $$(dirname $${moleculedir}) ;\
 		export INSTANCE_NAME=$$(echo "molecule-$$RANDOM") ;\
@@ -284,7 +287,7 @@ test-all-distros:
 	if [ -z "$$DISTRO_LIST" ]; then \
 		echo "ERROR: DISTRO_LIST environment variable is not defined." ;\
 		exit 1 ;\
-	fi
+	fi ;\
 	for moleculedir in roles/*/molecule; do \
 		for distro in $(shell echo $$DISTRO_LIST); do \
 			echo "Testing role: $${moleculedir} on $${distro}" ;\
