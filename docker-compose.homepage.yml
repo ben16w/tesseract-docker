@@ -2,7 +2,7 @@
 
 services:
   homepage:
-    image: git.tepig.ben16w.site/tesseract/homepage:latest
+    image: "git.tepig.${TESSERACT_DOMAIN}/tesseract/homepage:latest"
     container_name: homepage
     restart: always
     ports:

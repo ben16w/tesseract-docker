@@ -15,7 +15,7 @@ services:
       MAX_ASSET_SIZE_MB: 25
       CRAWLER_NUM_WORKERS: 2
       NEXTAUTH_SECRET: "${TESSERACT_HOARDER_SECRET}"
-      NEXTAUTH_URL: http://charizard.ben16w.site:3000
+      NEXTAUTH_URL: "http://charizard.${TESSERACT_DOMAIN}:3000"
       REDIS_HOST: hoarder-redis
       MEILI_ADDR: http://hoarder-meilisearch:7700
       MEILI_MASTER_KEY: "${TESSERACT_HOARDER_SECRET}"
