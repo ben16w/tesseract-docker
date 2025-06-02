@@ -172,6 +172,7 @@ lint:
 		ANSIBLE_ASK_VAULT_PASS=false ansible-lint \
 			--exclude "ansible_collections/" "playbooks/" "docker-compose.*.yml" \
 			-w var-naming[no-role-prefix] \
+			-w galaxy[no-changelog] \
 			--offline -q ;\
 	fi ;\
 	echo "Success!"
