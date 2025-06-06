@@ -7,3 +7,6 @@ services:
     restart: always
     ports:
       - 8866:80
+    environment:
+      HOMEPAGE_TITLE: Welney.net
+      HOMEPAGE_DOMAIN: welney.net
