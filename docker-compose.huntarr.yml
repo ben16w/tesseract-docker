@@ -1,0 +1,13 @@
+---
+
+services:
+  huntarr:
+    image: ghcr.io/plexguide/huntarr:latest
+    container_name: huntarr
+    restart: always
+    ports:
+      - 9705:9705
+    environment:
+      TZ: "${TESSERACT_TZ}"
+    volumes:
+      - "${TESSERACT_APPDATA_PATH}/huntarr_config:/config"
