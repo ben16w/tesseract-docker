@@ -1,0 +1,15 @@
+---
+
+services:
+  grocy:
+    image: lscr.io/linuxserver/grocy:latest
+    container_name: grocy
+    restart: always
+    ports:
+      - 9283:80
+    environment:
+      PUID: "${TESSERACT_UID}"
+      PGID: "${TESSERACT_GID}"
+      TZ: "${TESSERACT_TZ}"
+    volumes:
+      - "${TESSERACT_APPDATA_PATH}/grocy_config:/config"
