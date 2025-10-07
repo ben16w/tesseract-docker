@@ -21,6 +21,10 @@ services:
       WEB_SEARCH_RESULT_COUNT: 6
       WEB_SEARCH_ENGINE: searxng
       SEARXNG_QUERY_URL: "https://search.${TESSERACT_DOMAIN}/search?q=<query>"
+      CONTENT_EXTRACTION_ENGINE: tika
+      TIKA_SERVER_URL: "http://openwebui_tika:9998"
+      RAG_EMBEDDING_ENGINE: ollama
+      RAG_EMBEDDING_MODEL: nomic-embed-text:latest
     volumes:
       - "${TESSERACT_APPDATA_PATH}/openwebui-data:/app/backend/data"
 
