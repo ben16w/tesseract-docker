@@ -21,6 +21,14 @@ services:
       WEB_SEARCH_RESULT_COUNT: 6
       WEB_SEARCH_ENGINE: searxng
       SEARXNG_QUERY_URL: "https://search.${TESSERACT_DOMAIN}/search?q=<query>"
-
     volumes:
       - "${TESSERACT_APPDATA_PATH}/openwebui-data:/app/backend/data"
+
+  openwebui-tika:
+    image: apache/tika:latest-full
+    container_name: openwebui-tika
+    restart: always
+    ports:
+      - "9997:9998"
+    networks:
+      - docker_default
