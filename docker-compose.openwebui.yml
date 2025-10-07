@@ -30,5 +30,3 @@ services:
     restart: always
     ports:
       - "9997:9998"
-    networks:
-      - docker_default
