@@ -24,9 +24,9 @@ services:
     volumes:
       - "${TESSERACT_APPDATA_PATH}/openwebui-data:/app/backend/data"
 
-  openwebui-tika:
+  openwebui_tika:
     image: apache/tika:latest-full
-    container_name: openwebui-tika
+    container_name: openwebui_tika
     restart: always
     ports:
       - "9998:9998"
