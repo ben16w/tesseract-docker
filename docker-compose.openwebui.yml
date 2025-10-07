@@ -11,15 +11,15 @@ services:
       OLLAMA_BASE_URL: "https://ai.${TESSERACT_DOMAIN}"
       WEBUI_URL: "https://chat.${TESSERACT_DOMAIN}"
       CORS_ALLOW_ORIGIN: "https://chat.${TESSERACT_DOMAIN}"
-      DEFAULT_MODELS: "llama3.1:latest"
-      ENABLE_MODEL_FILTER: True
-      MODEL_FILTER_LIST: "llama3.1:latest;mistral-nemo:latest;gemma2:27b;codestral:latest;mathstral:latest"
+      ENABLE_OPENAI_API: False
+      ENABLE_EVALUATION_ARENA_MODELS: False
       ENABLE_COMMUNITY_SHARING: False
       ENABLE_MESSAGE_RATING: False
-      ENABLE_RAG_WEB_SEARCH: True
-      RAG_WEB_SEARCH_RESULT_COUNT: 6
-      ENABLE_SEARCH_QUERY: True
-      RAG_WEB_SEARCH_ENGINE: searxng
+      ENABLE_AUTOCOMPLETE_GENERATION: False
+      ENABLE_FOLLOW_UP_GENERATION: False
+      ENABLE_WEB_SEARCH: True
+      WEB_SEARCH_RESULT_COUNT: 6
+      WEB_SEARCH_ENGINE: searxng
       SEARXNG_QUERY_URL: "https://search.${TESSERACT_DOMAIN}/search?q=<query>"
 
     volumes:
