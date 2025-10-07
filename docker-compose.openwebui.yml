@@ -29,4 +29,4 @@ services:
     container_name: openwebui-tika
     restart: always
     ports:
-      - "9997:9998"
+      - "9998:9998"
