@@ -5,6 +5,7 @@ appdata
 
 ### Ansible ###
 *.retry
+.ansible
 
 ### Linux ###
 *~
