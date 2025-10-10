@@ -5,6 +5,8 @@ services:
     image: docker.all-hands.dev/all-hands-ai/openhands:0.58
     container_name: openhands
     restart: always
+    tty: true
+    stdin_open: true
     ports:
       - "3993:3000"
     extra_hosts:
@@ -12,6 +14,9 @@ services:
     environment:
       SANDBOX_RUNTIME_CONTAINER_IMAGE: docker.all-hands.dev/all-hands-ai/runtime:0.58-nikolaik
       LOG_ALL_EVENTS: true
+      LLM_API_KEY: "NA"
+      LLM_BASE_URL: "https://ai.${TESSERACT_DOMAIN}"
+      LLM_MODEL: "devstral"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - "${TESSERACT_APPDATA_PATH}/openhands_data:/.openhands"
