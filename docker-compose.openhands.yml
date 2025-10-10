@@ -1,0 +1,17 @@
+---
+
+services:
+  openhands:
+    image: docker.all-hands.dev/all-hands-ai/openhands:0.58
+    container_name: openhands
+    restart: always
+    ports:
+      - "3993:3000"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    environment:
+      SANDBOX_RUNTIME_CONTAINER_IMAGE: docker.all-hands.dev/all-hands-ai/runtime:0.58-nikolaik
+      LOG_ALL_EVENTS: true
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - "${TESSERACT_APPDATA_PATH}/openhands_data:/.openhands"
