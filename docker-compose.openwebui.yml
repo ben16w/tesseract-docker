@@ -28,7 +28,7 @@ services:
       WEB_LOADER_ENGINE: playwright
       PLAYWRIGHT_WS_URL: "ws://openwebui_playwright:3000"
     volumes:
-      - "${TESSERACT_APPDATA_PATH}/openwebui-data:/app/backend/data"
+      - "${TESSERACT_APPDATA_PATH}/openwebui_data:/app/backend/data"
 
   openwebui_tika:
     image: apache/tika:latest-full
