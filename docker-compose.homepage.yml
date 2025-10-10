@@ -5,6 +5,7 @@ services:
     image: "git.tepig.${TESSERACT_DOMAIN}/tesseract/homepage:latest"
     container_name: homepage
     restart: always
+    pull_policy: always
     ports:
       - 8866:80
     environment:
