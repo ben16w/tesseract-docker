@@ -2,7 +2,7 @@
 
 services:
   jellyfin:
-    image: ghcr.io/linuxserver/jellyfin
+    image: ghcr.io/linuxserver/jellyfin:10.11.0
     container_name: jellyfin
     restart: always
     ports:
