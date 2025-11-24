@@ -11,3 +11,14 @@ services:
       - "${TESSERACT_APPDATA_PATH}/homeassistant_config:/config"
       - /etc/localtime:/etc/localtime:ro
       - /run/dbus:/run/dbus:ro
+
+  homeassistant_matter:
+    image: ghcr.io/home-assistant-libs/python-matter-server:stable
+    container_name: homeassistant_matter
+    restart: always
+    network_mode: host
+    security_opt:
+      - apparmor=unconfined
+    volumes:
+      - /run/dbus:/run/dbus:ro
+      - "${TESSERACT_APPDATA_PATH}/homeassistant_matter:/data"
