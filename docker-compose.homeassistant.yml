@@ -6,11 +6,13 @@ services:
     container_name: homeassistant
     restart: always
     network_mode: host
-    privileged: true
+    devices:
+      - /dev/ttyUSB0:/dev/ttyUSB0
     volumes:
       - "${TESSERACT_APPDATA_PATH}/homeassistant_config:/config"
       - /etc/localtime:/etc/localtime:ro
       - /run/dbus:/run/dbus:ro
+      - /dev/serial/by-id:/dev/serial/by-id
 
   homeassistant_matter:
     image: ghcr.io/home-assistant-libs/python-matter-server:stable
