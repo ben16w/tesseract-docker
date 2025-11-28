@@ -11,7 +11,7 @@ services:
       PUID: ${TESSERACT_UID}
       PGID: ${TESSERACT_GID}
       TZ: ${TESSERACT_TZ}
-      APP_URL: http://localhost:6875
+      APP_URL: "https://notes.${TESSERACT_DOMAIN}"
       APP_KEY: "${TESSERACT_BOOKSTACK_KEY}"
 
       DB_HOST: bookstack_db
