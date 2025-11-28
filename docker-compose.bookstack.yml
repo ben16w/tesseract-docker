@@ -1,0 +1,39 @@
+---
+
+services:
+  bookstack:
+    image: lscr.io/linuxserver/bookstack:latest
+    container_name: bookstack
+    restart: always
+    ports:
+      - 6875:80
+    environment:
+      PUID: ${TESSERACT_UID}
+      PGID: ${TESSERACT_GID}
+      TZ: ${TESSERACT_TZ}
+      APP_URL: http://localhost:6875
+      APP_KEY: "${TESSERACT_BOOKSTACK_KEY}"
+
+      DB_HOST: bookstack_db
+      DB_PORT: 3306
+      DB_DATABASE: bookstack_database
+      DB_USERNAME: bookstack_user
+      DB_PASSWORD: "${TESSERACT_SQL_PASSWORD}"
+    volumes:
+      - "${TESSERACT_APPDATA_PATH}/bookstack_data:/config"
+
+
+  bookstack_db:
+    image: lscr.io/linuxserver/mariadb
+    container_name: bookstack_db
+    restart: always
+    environment:
+      PUID: ${TESSERACT_UID}
+      PGID: ${TESSERACT_GID}
+      TZ: ${TESSERACT_TZ}
+      MYSQL_ROOT_PASSWORD: "${TESSERACT_SQL_PASSWORD}"
+      MYSQL_USER: bookstack_user
+      MYSQL_PASSWORD: "${TESSERACT_SQL_PASSWORD}"
+      MYSQL_DATABASE: bookstack_database
+    volumes:
+      - ${TESSERACT_APPDATA_PATH}/bookstack_db:/config
