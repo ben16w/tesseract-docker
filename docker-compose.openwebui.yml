@@ -36,7 +36,7 @@ services:
     restart: always
 
   openwebui_playwright:
-    image: mcr.microsoft.com/playwright:v1.49.1-noble
+    image: mcr.microsoft.com/playwright:v1.56.0-noble
     container_name: openwebui_playwright
     restart: always
-    command: npx -y playwright@1.49.1 run-server --port 3000 --host 0.0.0.0
+    command: npx -y playwright@1.56.0 run-server --port 3000 --host 0.0.0.0
