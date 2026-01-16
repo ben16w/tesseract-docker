@@ -42,7 +42,7 @@ services:
       GITEA__mailer__SMTP_PORT: "${TESSERACT_EMAIL_PORT}"
       GITEA__mailer__FROM: "Gitea<${TESSERACT_EMAIL_USERNAME}>"
       GITEA__mailer__USER: "${TESSERACT_EMAIL_USERNAME}"
-      GITEA__mailer__PASSWD: "${TESSERACT_EMAIL_PASSORD}"
+      GITEA__mailer__PASSWD: "${TESSERACT_EMAIL_PASSWORD}"
 
     volumes:
       - /etc/timezone:/etc/timezone:ro

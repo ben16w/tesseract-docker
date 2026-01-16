@@ -1,0 +1,44 @@
+---
+
+services:
+  forgejo:
+    image: codeberg.org/forgejo/forgejo:14
+    container_name: forgejo
+    restart: always
+    ports:
+      - '3007:3000'
+      - '222:22'
+    environment:
+      USER_UID: ${TESSERACT_UID}
+      USER_GID: ${TESSERACT_GID}
+
+      FORGEJO____APP_NAME: "Forgejo"
+
+      #FORGEJO__server__DOMAIN: "git.${TESSERACT_DOMAIN}"
+      #FORGEJO__server__SSH_DOMAIN: "${TESSERACT_DOMAIN}"
+      #FORGEJO__server__ROOT_URL: "https://git.${TESSERACT_DOMAIN}"
+
+      FORGEJO__server__HTTP_PORT: 3000
+      FORGEJO__server__SSH_LISTEN_PORT: 222 # Port for the built-in SSH server.
+      FORGEJO__server__SSH_PORT: 222 # SSH port displayed in clone URL.
+
+      FORGEJO__webhook__ALLOWED_HOST_LIST: "*.${TESSERACT_DOMAIN}"
+
+      FORGEJO__service__REGISTER_MANUAL_CONFIRM: "true"
+      FORGEJO__service__REQUIRE_SIGNIN_VIEW: "false"
+      FORGEJO__service__ENABLE_NOTIFY_MAIL: "true"
+
+      FORGEJO__openid__ENABLE_OPENID_SIGNIN: "false"
+      FORGEJO__openid__ENABLE_OPENID_SIGNUP: "false"
+
+      FORGEJO__database__DB_TYPE: "sqlite3"
+
+      FORGEJO__mailer__ENABLED: "true"
+      FORGEJO__mailer__SMTP_ADDR: "${TESSERACT_EMAIL_HOST}"
+      FORGEJO__mailer__SMTP_PORT: "${TESSERACT_EMAIL_PORT}"
+      FORGEJO__mailer__FROM: "Gitea<${TESSERACT_EMAIL_USERNAME}>"
+      FORGEJO__mailer__USER: "${TESSERACT_EMAIL_USERNAME}"
+      FORGEJO__mailer__PASSWD: "${TESSERACT_EMAIL_PASSWORD}"
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - "${TESSERACT_APPDATA_PATH}/forgejo_data:/data"
