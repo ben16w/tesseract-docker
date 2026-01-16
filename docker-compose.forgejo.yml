@@ -14,9 +14,9 @@ services:
 
       FORGEJO____APP_NAME: "Forgejo"
 
-      FORGEJO__server__DOMAIN: "git.${TESSERACT_DOMAIN}"
+      FORGEJO__server__DOMAIN: "forgejo.${TESSERACT_DOMAIN}"
       FORGEJO__server__SSH_DOMAIN: "${TESSERACT_DOMAIN}"
-      FORGEJO__server__ROOT_URL: "https://git.${TESSERACT_DOMAIN}"
+      FORGEJO__server__ROOT_URL: "https://forgejo.${TESSERACT_DOMAIN}"
 
       FORGEJO__server__HTTP_PORT: 3000
       FORGEJO__server__SSH_LISTEN_PORT: 222 # Port for the built-in SSH server.
