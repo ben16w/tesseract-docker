@@ -23,6 +23,6 @@ services:
       SMTP_SECURITY: "force_tls"
       SMTP_PORT: "${TESSERACT_EMAIL_PORT}"
       SMTP_USERNAME: "${TESSERACT_EMAIL_USERNAME}"
-      SMTP_PASSWORD: "${TESSERACT_EMAIL_PASSORD}"
+      SMTP_PASSWORD: "${TESSERACT_EMAIL_PASSWORD}"
     volumes:
       - ${TESSERACT_APPDATA_PATH}/vaultwarden_data:/data

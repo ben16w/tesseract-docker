@@ -30,7 +30,7 @@ services:
       SMTP_PORT: ${TESSERACT_EMAIL_PORT}
       SMTP_AUTHTYPE: LOGIN
       SMTP_NAME: "${TESSERACT_EMAIL_USERNAME}"
-      SMTP_PASSWORD: "${TESSERACT_EMAIL_PASSORD}"
+      SMTP_PASSWORD: "${TESSERACT_EMAIL_PASSWORD}"
       #MAIL_FROM_ADDRESS # Use this address for the 'from' field in the emails sent by Nextcloud. (not set by default)
       #MAIL_DOMAIN  # Set a different domain for the emails than the domain where Nextcloud is installed. (not set by default)
 
