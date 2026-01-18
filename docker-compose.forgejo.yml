@@ -23,6 +23,7 @@ services:
       FORGEJO__server__SSH_PORT: 222 # SSH port displayed in clone URL.
 
       FORGEJO__webhook__ALLOWED_HOST_LIST: "*.${TESSERACT_DOMAIN}"
+      FORGEJO__migrations__ALLOW_LOCALNETWORKS: true
 
       FORGEJO__service__REGISTER_MANUAL_CONFIRM: "true"
       FORGEJO__service__REQUIRE_SIGNIN_VIEW: "false"
