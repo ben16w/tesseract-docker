@@ -1,0 +1,15 @@
+---
+
+services:
+  sillytavern:
+    image: ghcr.io/sillytavern/sillytavern:latest
+    container_name: sillytavern
+    restart: always
+    ports:
+      - "8000:8000"
+    environment:
+      TZ: "${TESSERACT_TZ}"
+    volumes:
+      - "${TESSERACT_APPDATA_PATH}/sillytavern_plugins:/home/node/app/plugins"
+      - "${TESSERACT_APPDATA_PATH}/sillytavern_config:/home/node/app/config"
+      - "${TESSERACT_APPDATA_PATH}/sillytavern_data:/home/node/app/data"
