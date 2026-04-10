@@ -1,0 +1,13 @@
+---
+
+services:
+  openterminal:
+    image: ghcr.io/open-webui/open-terminal:latest
+    container_name: openterminal
+    restart: always
+    ports:
+      - "8001:8000"
+    environment:
+      OPEN_TERMINAL_API_KEY: "${TESSERACT_OPENTERMINAL_API_KEY}"
+    volumes:
+      - "${TESSERACT_APPDATA_PATH}/openterminal_data:/home/user"
