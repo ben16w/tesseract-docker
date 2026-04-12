@@ -2,7 +2,7 @@
 
 services:
   openhands:
-    image: docker.all-hands.dev/all-hands-ai/openhands:0.58
+    image: docker.openhands.dev/openhands/openhands:1.6
     container_name: openhands
     restart: always
     tty: true
@@ -12,11 +12,9 @@ services:
     extra_hosts:
       - "host.docker.internal:host-gateway"
     environment:
-      SANDBOX_RUNTIME_CONTAINER_IMAGE: docker.all-hands.dev/all-hands-ai/runtime:0.58-nikolaik
+      AGENT_SERVER_IMAGE_REPOSITORY: "ghcr.io/openhands/agent-server"
+      AGENT_SERVER_IMAGE_TAG: "1.15.0-python"
       LOG_ALL_EVENTS: true
-      LLM_API_KEY: "NA"
-      LLM_BASE_URL: "https://ai.${TESSERACT_DOMAIN}"
-      LLM_MODEL: "devstral"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - "${TESSERACT_APPDATA_PATH}/openhands_data:/.openhands"
