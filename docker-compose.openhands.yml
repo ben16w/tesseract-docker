@@ -5,8 +5,8 @@ services:
     image: docker.openhands.dev/openhands/openhands:1.6
     container_name: openhands
     restart: always
-    tty: true
-    stdin_open: true
+    tty: "true"
+    stdin_open: "true"
     ports:
       - "3000:3000"
     extra_hosts:
@@ -14,6 +14,8 @@ services:
     environment:
       AGENT_SERVER_IMAGE_REPOSITORY: "ghcr.io/openhands/agent-server"
       AGENT_SERVER_IMAGE_TAG: "1.15.0-python"
+      OH_WEB_URL: "http://${TESSERACT_DOMAIN}:3000"
+      SANDBOX_CONTAINER_URL_PATTERN: "http://${TESSERACT_DOMAIN}:{port}"
       LOG_ALL_EVENTS: true
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
