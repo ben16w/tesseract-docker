@@ -13,7 +13,7 @@ services:
       TZ: "${TESSERACT_TZ}"
       ALLOW_SIGNUP: false
       BASE_URL: "https://meal.${TESSERACT_DOMAIN}"
-      OPENAI_BASE_URL: "https://ai.${TESSERACT_DOMAIN}/v1"
+      OPENAI_BASE_URL: "https://ai.${TESSERACT_DOMAIN}"
       OPENAI_API_KEY: "notrequired"
       OPENAI_MODEL: "gpt"
       OPENAI_WORKERS: 1
