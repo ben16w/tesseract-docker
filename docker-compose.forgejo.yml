@@ -49,6 +49,7 @@ services:
   forgejo_runner:
     image: data.forgejo.org/forgejo/runner:12
     container_name: forgejo_runner
+    user: root
     restart: always
     depends_on:
       - forgejo
@@ -56,15 +57,15 @@ services:
       - "${TESSERACT_APPDATA_PATH}/forgejo_runner:/data"
       - /var/run/docker.sock:/var/run/docker.sock
     environment:
-      FORGEJO_INSTANCE_URL: "https://forgejo.${TESSERACT_DOMAIN}"
-      FORGEJO_RUNNER_UUID: "${TESSERACT_FORGEJO_RUNNER_UUID}"
-      FORGEJO_RUNNER_TOKEN: "${TESSERACT_FORGEJO_RUNNER_TOKEN}"
+      URL: "https://forgejo.${TESSERACT_DOMAIN}"
+      UUID: "${TESSERACT_FORGEJO_RUNNER_UUID}"
+      TOKEN: "${TESSERACT_FORGEJO_RUNNER_TOKEN}"
     entrypoint: ["/bin/sh", "-c"]
     command:
       - |
         if [ ! -f /data/config.yml ]; then
           forgejo-runner generate-config > /data/config.yml
-          printf '\nserver:\n  connections:\n    forgejo:\n      url: %s\n      uuid: %s\n      token: %s\n' \
-            "$$FORGEJO_INSTANCE_URL" "$$FORGEJO_RUNNER_UUID" "$$FORGEJO_RUNNER_TOKEN" >> /data/config.yml
+          REPL="  connections:\n    forgejo:\n      url: $$URL\n      uuid: $$UUID\n      token: $$TOKEN"
+          sed -i "s|^  connections:$$|$$REPL|" /data/config.yml
         fi
         exec forgejo-runner daemon --config /data/config.yml
