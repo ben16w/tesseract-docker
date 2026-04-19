@@ -1,13 +1,12 @@
----
-
 services:
   forgejo:
-    image: codeberg.org/forgejo/forgejo:14
+    image: codeberg.org/forgejo/forgejo:15-rootless
     container_name: forgejo
+    user: "${TESSERACT_UID}:${TESSERACT_GID}"
     restart: always
     ports:
       - '3007:3000'
-      - '222:22'
+      - '222:2222'
     environment:
       USER_UID: ${TESSERACT_UID}
       USER_GID: ${TESSERACT_GID}
@@ -19,8 +18,8 @@ services:
       FORGEJO__server__ROOT_URL: "https://forgejo.${TESSERACT_DOMAIN}"
 
       FORGEJO__server__HTTP_PORT: 3000
-      FORGEJO__server__SSH_LISTEN_PORT: 222 # Port for the built-in SSH server.
-      FORGEJO__server__SSH_PORT: 222 # SSH port displayed in clone URL.
+      FORGEJO__server__SSH_LISTEN_PORT: 222
+      FORGEJO__server__SSH_PORT: 222
 
       FORGEJO__webhook__ALLOWED_HOST_LIST: "*.${TESSERACT_DOMAIN}"
       FORGEJO__migrations__ALLOW_LOCALNETWORKS: true
@@ -40,6 +39,32 @@ services:
       FORGEJO__mailer__FROM: "Gitea<${TESSERACT_EMAIL_USERNAME}>"
       FORGEJO__mailer__USER: "${TESSERACT_EMAIL_USERNAME}"
       FORGEJO__mailer__PASSWD: "${TESSERACT_EMAIL_PASSWORD}"
+
+      FORGEJO__actions__ENABLED: "true"
+      FORGEJO__actions__DEFAULT_ACTIONS_URL: "https://data.forgejo.org"
     volumes:
       - /etc/localtime:/etc/localtime:ro
-      - "${TESSERACT_APPDATA_PATH}/forgejo_data:/data"
+      - "${TESSERACT_APPDATA_PATH}/forgejo_data:/var/lib/gitea"
+
+  forgejo_runner:
+    image: data.forgejo.org/forgejo/runner:12
+    container_name: forgejo_runner
+    restart: always
+    depends_on:
+      - forgejo
+    volumes:
+      - "${TESSERACT_APPDATA_PATH}/forgejo_runner:/data"
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      FORGEJO_INSTANCE_URL: "https://forgejo.${TESSERACT_DOMAIN}"
+      FORGEJO_RUNNER_UUID: "${TESSERACT_FORGEJO_RUNNER_UUID}"
+      FORGEJO_RUNNER_TOKEN: "${TESSERACT_FORGEJO_RUNNER_TOKEN}"
+    entrypoint: ["/bin/sh", "-c"]
+    command:
+      - |
+        if [ ! -f /data/config.yml ]; then
+          forgejo-runner generate-config > /data/config.yml
+          printf '\nserver:\n  connections:\n    forgejo:\n      url: %s\n      uuid: %s\n      token: %s\n' \
+            "$$FORGEJO_INSTANCE_URL" "$$FORGEJO_RUNNER_UUID" "$$FORGEJO_RUNNER_TOKEN" >> /data/config.yml
+        fi
+        exec forgejo-runner daemon --config /data/config.yml
