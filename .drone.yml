@@ -13,6 +13,7 @@ steps:
     image: docker:dind
     commands:
       - apk update
+      - apk add --upgrade expat
       - apk add bash make python3 py3-pip
       - make install-venv
       - make lint
